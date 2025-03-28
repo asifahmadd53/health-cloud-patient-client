@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthLayout from './AuthNavigation';
 import DrawerLayout from './DrawerNavigation';
 import TabLayout from './TabNavigation';
+import HomeRoutes from './Main/HomeRoutes';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,6 +19,7 @@ const AppLayout = () => {
       <Stack.Screen name="tabs">
         {() => <TabLayout />}
       </Stack.Screen>
+      
     </Stack.Navigator>
   );
 };

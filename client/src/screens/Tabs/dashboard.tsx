@@ -12,6 +12,8 @@ import Icons from '../../utils/libs/constants/Icons';
 import CustomInput from '../../components/CustomInput';
 import Categories from '../../components/Categories';
 import DoctorCard from '../../components/DoctorCard';
+import SheduleCard from '../../components/SheduleCard';
+import Carousel from 'react-native-reanimated-carousel';
 
 const { width } = Dimensions.get('window');
 
@@ -38,7 +40,7 @@ const DashBoard = () => {
       <View className="flex-row items-center justify-between w-full mt-7">
         <CustomHeader />
         <Text className="text-center flex-1 font-bold text-2xl lg:text-3xl">Hello Asif</Text>
-        <TouchableOpacity activeOpacity={.91} onPress={() => navigation.navigate('ProfileLayout')}>
+        <TouchableOpacity activeOpacity={0.91} onPress={() => navigation.navigate('UserProfile')}>
           <Avatar.Image size={isTablet ? 45 : 30} source={Images.manAvatar} />
         </TouchableOpacity>
       </View>
@@ -55,21 +57,21 @@ const DashBoard = () => {
       </View>
 
       {/* Carousel */}
-      <View className="mx-0" id="carousel-component" style={{ marginTop: 12 ,alignItems:'center', alignContent:'center'}}>
-        {/* <Carousel
+      <View className="mx-auto" id="carousel-component" style={{ marginTop: 12 ,alignItems:'center', alignContent:'center'}}>
+        <Carousel
           ref={ref}
-          autoPlayInterval={1000}  // Only defined once
+          autoPlayInterval={2000}  // Only defined once
           data={defaultDataWith6Colors}
-          height={isTablet ? 200 : 140}
+          height={isTablet ? 200 : 170}
           loop={false}
           pagingEnabled={true}
           snapEnabled={true}
           width={width * .90} 
-          mode='vertical-stack'
-          modeConfig={{
-            snapDirection: "left",
-            stackInterval: 18,
-          }}
+          mode={"vertical-stack"}
+				  modeConfig={{
+					snapDirection: "left",
+					stackInterval: 11,
+				}}
           customConfig={() => ({ type: 'positive', viewCount: 5 })}
           renderItem={() => (
             <SheduleCard
@@ -79,7 +81,8 @@ const DashBoard = () => {
               time='Monday 10, May 2020'
             />
           )}
-        /> */}
+        />
+  
 
 
       </View>

@@ -57,7 +57,7 @@ const SignIn = () => {
 
             </View>
             <View className="mt-8">
-              <CustomButton label={'Login'} link={'(drawer)'} />
+              <CustomButton label={'Login'} link={'drawer'} />
             </View>
             <View className="mx-auto mt-2 items-center gap-5">
             </View>
