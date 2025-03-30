@@ -10,16 +10,10 @@ const Stack = createNativeStackNavigator();
 const AppLayout = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="auth">
-        {() => <AuthLayout />}
-      </Stack.Screen>
-      <Stack.Screen name="drawer">
-        {() => <DrawerLayout />}
-      </Stack.Screen>
-      <Stack.Screen name="tabs">
-        {() => <TabLayout />}
-      </Stack.Screen>
-      
+      <Stack.Screen name="auth" component={AuthLayout}/>
+      <Stack.Screen name="drawer" component={DrawerLayout}/>
+      <Stack.Screen name="tabs" component={TabLayout}/>
+      <Stack.Screen name="home" component={HomeRoutes}/>
     </Stack.Navigator>
   );
 };

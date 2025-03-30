@@ -1,13 +1,14 @@
 import { StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Icons from '@/src/utils/libs/constants/Icons'
+
 import { useNavigation } from '@react-navigation/native'
-import CustomSimpleInput from '@/src/components/CustomSimpleInput'
 import { RadioButton } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown'
-import { AntDesign } from '@expo/vector-icons'
-import CustomButton from '@/src/components/CustomButton'
+import Icons from '../../utils/libs/constants/Icons';
+import CustomSimpleInput from '../../components/CustomSimpleInput';
+import CustomButton from '../../components/CustomButton';
+
 
 const AddFamily = () => {
   const navigation = useNavigation()

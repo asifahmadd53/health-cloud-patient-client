@@ -1,12 +1,13 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView,TouchableWithoutFeedback } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import Icons from '@/src/utils/libs/constants/Icons'
+
 import { SafeAreaView } from 'react-native-safe-area-context'
-import Images from '@/src/utils/libs/constants/Images'
-import { Calendar } from 'react-native-calendars'
-import moment from 'moment'
-import CustomButton from '@/src/components/CustomButton'
+import Icons from '../../utils/libs/constants/Icons';
+import Images from '../../utils/libs/constants/Images';
+import CustomButton from '../../components/CustomButton';
+// import moment from 'moment'
+
 
 const experienceData = [
     { id: 1, icon: Icons.promotion, years: 5, label: "Years of work" },
@@ -171,7 +172,7 @@ const DrProfile = () => {
 </View>
             {openCalendar && (
                         <View className="rounded-lg p-4 shadow-lg absolute top-0 left-0 right-0 bottom-0 flex-1 justify-center bg-black/30">
-                            <Calendar
+                            {/* <Calendar
                                 onDayPress={day => {
                                     setSelectedDate(day.dateString);
                                     setOpenCalendar(false);
@@ -184,7 +185,7 @@ const DrProfile = () => {
                                     todayTextColor: '#FF5733',
                                     arrowColor: '#4A90E2',
                                 }}
-                            />
+                            /> */}
                         </View>
                     )}
 
@@ -201,4 +202,3 @@ const DrProfile = () => {
 
 export default DrProfile
 
-const styles = StyleSheet.create({})

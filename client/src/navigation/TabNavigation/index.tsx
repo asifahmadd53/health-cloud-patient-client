@@ -9,7 +9,7 @@ import DashBoard from '../../screens/Tabs/dashboard';
 const Tab = createBottomTabNavigator();
 
 const TabLayout = () => {
-  
+
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -47,7 +47,6 @@ const TabLayout = () => {
           name="Clinc"
           component={DashBoard}
           options={{
-            
             tabBarIcon: () => <Image className="w-6 h-6" source={Icons.home} />,
             tabBarLabel: 'Home',
           }}

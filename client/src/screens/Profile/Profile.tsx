@@ -2,8 +2,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-import Icons from '@/src/utils/libs/constants/Icons'
-import Images from '@/src/utils/libs/constants/Images'
+import Icons from '../../utils/libs/constants/Icons'
+import Images from '../../utils/libs/constants/Images'
+
 
 const Profile = () => {
     const navigation = useNavigation()

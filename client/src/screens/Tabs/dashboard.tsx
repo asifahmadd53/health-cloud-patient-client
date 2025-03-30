@@ -53,7 +53,7 @@ const DashBoard = () => {
 
       <View className="flex-row justify-between items-center mt-5">
         <Text className="text-lg font-bold lg:text-xl">Upcoming Appointments</Text>
-        <Text onPress={() => navigation.navigate('AppointmentsLayout')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
+        <Text onPress={() => navigation.navigate('Appointments')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
       </View>
 
       {/* Carousel */}
@@ -89,7 +89,7 @@ const DashBoard = () => {
 
       <View className="flex-row justify-between items-center mt-5">
         <Text className="text-lg font-bold lg:text-xl">Find a doctor</Text>
-        <Text onPress={() => navigation.navigate('SpecialistLayout')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
+        <Text onPress={() => navigation.navigate('Specialist')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
       </View>
 
 
@@ -102,7 +102,7 @@ const DashBoard = () => {
 
       <View className="flex-row justify-between items-center mt-4">
         <Text className="text-lg font-bold lg:text-xl">Recent Doctors</Text>
-        <Text onPress={() => navigation.navigate('RecentDrLayout')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
+        <Text onPress={() => navigation.navigate('RecentDr')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
       </View>
 
       <ScrollView showsVerticalScrollIndicator={false} className='px-2 mt-5'>

@@ -1,9 +1,9 @@
-import { Dimensions, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Dimensions, FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-import Icons from '@/src/utils/libs/constants/Icons'
-import DoctorCard from '@/src/components/DoctorCard'
+import Icons from '../../utils/libs/constants/Icons'
+import DoctorCard from '../../components/DoctorCard'
 
 
 const { height } = Dimensions.get('window')
@@ -38,5 +38,3 @@ const RecentDr = () => {
 }
 
 export default RecentDr
-
-const styles = StyleSheet.create({})

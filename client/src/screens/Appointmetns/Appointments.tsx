@@ -5,11 +5,12 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { Image } from 'react-native';
-import AppointmentCard from '@/src/components/AppointmentCard';
-import Icons from '@/src/utils/libs/constants/Icons';
+
 import Animated, {
     useSharedValue, useAnimatedStyle, withSpring, withTiming, delay
 } from 'react-native-reanimated';
+import Icons from '../../utils/libs/constants/Icons';
+import AppointmentCard from '../../components/AppointmentCard';
 
 const Appointments = () => {
     const navigation = useNavigation();

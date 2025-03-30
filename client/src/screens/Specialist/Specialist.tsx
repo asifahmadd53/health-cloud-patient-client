@@ -1,15 +1,16 @@
-import { Image, Text, TouchableOpacity, View, FlatList, Dimensions, Pressable, Animated, StyleSheet, ScrollView } from 'react-native';
-import React, { useState, useRef, useEffect } from 'react';
-import Icons from '@/src/utils/libs/constants/Icons';
+import { Image, Text, TouchableOpacity, View, FlatList, Dimensions, StyleSheet, ScrollView } from 'react-native';
+import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import DoctorCard from '@/src/components/DoctorCard';
-import CustomInput from '@/src/components/CustomInput';
+import Icons from '../../utils/libs/constants/Icons';
+import Categories from '../../components/Categories';
+import CustomInput from '../../components/CustomInput';
 import ReactNativeModal from 'react-native-modal';
-import { Dropdown } from 'react-native-element-dropdown'
-import CustomButton from '@/src/components/CustomButton';
+import { Dropdown } from 'react-native-element-dropdown';
 import { CheckBox,Switch } from '@rneui/themed';
-import Categories from '@/src/components/Categories';
+import CustomButton from '../../components/CustomButton';
+import DoctorCard from '../../components/DoctorCard';
+
 
 const { height } = Dimensions.get('window');
 
