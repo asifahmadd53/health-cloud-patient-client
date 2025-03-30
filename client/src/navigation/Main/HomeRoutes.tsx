@@ -1,20 +1,18 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {Appointments, RecentDoctors, Specialist} from '../../screens';
 import ProfileRoutes from './ProfileRoutes';
+import AppointmentsRoutes from './AppointmentsRoutes';
+import SpecialistRoutes from './SpecialistRoutes';
 
 const Stack = createNativeStackNavigator();
 
 const HomeRoutes = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="UserProfile" component={ProfileRoutes} options={{headerShown:false}} />
-      <Stack.Screen name="Appointments" component={Appointments} />
-      <Stack.Screen name="Specialist" component={Specialist} />
-      <Stack.Screen name="RecentDoctors" component={RecentDoctors} />
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="AppointmentsRoutes" component={AppointmentsRoutes} />
+      <Stack.Screen name="SpecialistRoutes" component={SpecialistRoutes} />
+      <Stack.Screen name="ProfileRoutes" component={ProfileRoutes} />
     </Stack.Navigator>
-
   );
 };
 
 export default HomeRoutes;
-

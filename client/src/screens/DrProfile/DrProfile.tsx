@@ -1,12 +1,14 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View, ScrollView, } from 'react-native'
+import { Image, Text, TouchableOpacity, View, ScrollView, } from 'react-native'
 import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import moment from 'moment';
+import { LocaleConfig, Calendar } from 'react-native-calendars';
 
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icons from '../../utils/libs/constants/Icons';
 import Images from '../../utils/libs/constants/Images';
 import CustomButton from '../../components/CustomButton';
-// import moment from 'moment'
+
 
 
 const experienceData = [
@@ -30,6 +32,17 @@ const timeSlots = {
     evening: ["06:00 PM", "07:00 PM", "08:00 PM"],
   };
 
+  LocaleConfig.locales['fr'] = {
+    monthNames: [
+      'Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
+      'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'
+    ],
+    monthNamesShort: ['Janv.', 'Févr.', 'Mars', 'Avril', 'Mai', 'Juin', 'Juil.', 'Août', 'Sept.', 'Oct.', 'Nov.', 'Déc.'],
+    dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+    dayNamesShort: ['Dim.', 'Lun.', 'Mar.', 'Mer.', 'Jeu.', 'Ven.', 'Sam.'],
+    today: "Aujourd'hui"
+  };
+  LocaleConfig.defaultLocale = 'fr';
 const DrProfile = () => {
     const navigation = useNavigation()
     const [selectedDate, setSelectedDate] = useState(moment().format('YYYY-MM-DD'));
@@ -186,6 +199,29 @@ const DrProfile = () => {
                                     arrowColor: '#4A90E2',
                                 }}
                             /> */}
+                              {openCalendar && (
+        <View className='absolute inset-0 bg-black/30 justify-center items-center'>
+          <View className='bg-white p-5 rounded-lg shadow-lg'>
+            <Calendar
+              onDayPress={(day) => {
+                setSelectedDate(day.dateString);
+                setOpenCalendar(false);
+              }}
+              markedDates={{
+                [selectedDate]: { selected: true, selectedColor: '#2895cb' }
+              }}
+              theme={{
+                selectedDayBackgroundColor: '#2895cb',
+                todayTextColor: '#FF5733',
+                arrowColor: '#4A90E2',
+              }}
+            />
+            <TouchableOpacity onPress={() => setOpenCalendar(false)} className='mt-3 bg-black px-4 py-2 rounded-lg'>
+              <Text className='text-white text-center'>Close</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      )}
                         </View>
                     )}
 

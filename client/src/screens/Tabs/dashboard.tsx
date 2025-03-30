@@ -14,6 +14,7 @@ import Categories from '../../components/Categories';
 import DoctorCard from '../../components/DoctorCard';
 import SheduleCard from '../../components/SheduleCard';
 import Carousel from 'react-native-reanimated-carousel';
+import { Screen } from 'react-native-screens';
 
 const { width } = Dimensions.get('window');
 
@@ -40,7 +41,8 @@ const DashBoard = () => {
       <View className="flex-row items-center justify-between w-full mt-7">
         <CustomHeader />
         <Text className="text-center flex-1 font-bold text-2xl lg:text-3xl">Hello Asif</Text>
-        <TouchableOpacity activeOpacity={0.91} onPress={() => navigation.navigate('UserProfile')}>
+        <TouchableOpacity activeOpacity={0.91}   onPress={() => navigation.navigate('home', { screen: 'ProfileRoutes', params: { screen: 'UserProfile' } })}
+        >
           <Avatar.Image size={isTablet ? 45 : 30} source={Images.manAvatar} />
         </TouchableOpacity>
       </View>
@@ -53,7 +55,9 @@ const DashBoard = () => {
 
       <View className="flex-row justify-between items-center mt-5">
         <Text className="text-lg font-bold lg:text-xl">Upcoming Appointments</Text>
-        <Text onPress={() => navigation.navigate('Appointments')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
+        <Text
+        onPress={()=> navigation.navigate('home', {screen:'AppointmentsRoutes'})}
+        className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
       </View>
 
       {/* Carousel */}
@@ -89,7 +93,10 @@ const DashBoard = () => {
 
       <View className="flex-row justify-between items-center mt-5">
         <Text className="text-lg font-bold lg:text-xl">Find a doctor</Text>
-        <Text onPress={() => navigation.navigate('Specialist')} className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
+        <Text
+        onPress={() => navigation.navigate('home', { screen: 'SpecialistRoutes' })}
+        
+        className="text-secondary underline text-base lg:text-lg">SEE ALL</Text>
       </View>
 
 

@@ -4,6 +4,7 @@ import Images from '../utils/libs/constants/Images';
 import Icons from '../utils/libs/constants/Icons';
 import { useNavigation } from '@react-navigation/native';
 
+
 const { width } = Dimensions.get('window'); 
 
 const isTablet  =  width > 768
@@ -11,7 +12,9 @@ const isTablet  =  width > 768
 const DoctorCard = () => {
     const navigation = useNavigation()
     return (
-        <TouchableOpacity activeOpacity={1} onPress={()=> navigation.navigate('DrProfileLayout')}>
+        <TouchableOpacity activeOpacity={1} onPress={() =>navigation.navigate('DrProfileRoutes')
+        }
+>
             <View className="flex-row items-center bg-white border border-slate-300 shadow-md rounded-2xl p-5 mb-4 shadow-slate-400">
             {/* Doctor Image */}
             <Image 
