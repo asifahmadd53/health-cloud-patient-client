@@ -35,38 +35,23 @@ const SignUp = () => {
     <SafeAreaView className="bg-white min-h-full px-5">
       <ScrollView className="flex-grow" showsVerticalScrollIndicator={false}>
         <KeyboardAvoidingView>
-            <TouchableOpacity activeOpacity={.90} onPress={() => navigation.goBack()}
-                className='mt-6 mb-2 w-12 h-12 items-center justify-center bg-[#ECECEC] rounded-full'>
-                  <Image className='w-8 h-8 object-cover'source={Icons.leftIcon}/>
-                </TouchableOpacity>
+            
            <View className="">
                       <View className="items-center justify-center">
-                      <View className="flex-row items-center gap-2">
-                      {/* style={{width:width*.13, height:height*.07}} */}
+                      <View className="flex-row items-center gap-2 mt-12">
+                     
                         <Image className="w-16 h-16"  resizeMode="contain" source={Images.logo}/>
                         <Text className="font-bold text-xl">Health Cloud</Text>
                       </View>
                       </View>
-                     <Text className="text-3xl font-bold mt-5">
-                      Sign Up
+                     <Text className="text-3xl font-bold mt-12">
+                     Registration
                      </Text>
-                     <Text className="text-base text-gray-600 mt-1">Give creadential to sign up your account</Text>
+                     <Text className="text-lg text-gray-500 mt-3">A four digit code will be sent to your phone number</Text>
                     </View>
           <View className="pt-5 w-[97%] mx-auto gap-2">
-          <Text className="text-base md:text-lg font-semibold tracking-wider">Full name</Text>
-            <CustomInput
-              placeholder={"Name"}
-              value={name}
-              icon={Icons.user}
-              onChange={setName}
-            />
-            <Text className="text-base md:text-lg font-semibold tracking-wider">Email</Text>
-            <CustomInput
-              placeholder={"Email"}
-              value={email}
-              icon={Icons.email}
-              onChange={setEmail}
-            />
+           
+         
             <Text className="text-base md:text-lg font-semibold tracking-wider">Phone #</Text>
             <CustomInput
               placeholder={"Phone"}
@@ -74,21 +59,11 @@ const SignUp = () => {
               icon={Icons.phone}
               onChange={setPhone}
             />
-            <Text className="text-base md:text-lg font-semibold tracking-wider">Password</Text>
-            <CustomPasswordInput
-              placeholder={"Password"}
-              value={password}
-              onChange={setPassword}
-             
-            />
-            <Text className="text-base md:text-lg font-semibold tracking-wider">Confirm Password</Text>
-            <CustomPasswordInput
-              placeholder={"Confirm Password"}
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-            />
+           
+           
+            
           </View>
-          <Pressable
+          {/* <Pressable
             onPress={onToggleSwitch}
             className="flex-row items-center justify-center text-sm pt-6 "
           >
@@ -96,20 +71,10 @@ const SignUp = () => {
             <Text className="ml-2">
               I agree with the Terms of Service & Privacy Policy
             </Text>
-          </Pressable>
-         <View className="my-5">
-         <CustomButton label="Sign Up" link="sign-up-completed"/>
+          </Pressable> */}
+         <View className="my-8">
+         <CustomButton label="Send Code" link="OTPVerification"/>
          </View>
-         <View className="flex-row items-center my-2 px-3">
-            <View className="flex-1 border-b border-gray-300" />
-            <Text className="mx-2 text-gray-500">or continue with</Text>
-            <View className="flex-1 border-b border-gray-300" />
-          </View>
-          <View className="w-[70%] mx-auto mt-4 mb-7">
-          <Button buttonColor="#FFFFFF" contentStyle={{borderColor:'lightgray', borderWidth:1,height:60,borderRadius:10}}  icon={()=><Image style={{ width: 24, height: 24,marginRight:10 }} resizeMode="contain" source={Icons.google}/>} mode="contained-tonal" style={{borderRadius:0}}>
-          Sign in with Google
-          </Button>
-          </View>
         </KeyboardAvoidingView>
       </ScrollView>
     </SafeAreaView>

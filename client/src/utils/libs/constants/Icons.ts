@@ -41,6 +41,10 @@ import cloud_computing from '../../../assets/icons/cloud-computing.png'
 import promotion from '../../../assets/icons/promotion.png' 
 import teamwork from '../../../assets/icons/teamwork.png' 
 import calendar from '../../../assets/icons/calendar.png' 
+import next from '../../../assets/icons/next.png' 
+import add_file from '../../../assets/icons/add_file.png' 
+import edit_text from '../../../assets/icons/edit_text.png' 
+import cross from '../../../assets/icons/cross.png' 
 
 
 export default {
@@ -86,5 +90,9 @@ export default {
     doctor,
     promotion, 
     teamwork,
-    calendar
+    calendar,
+    next,
+    add_file,
+    edit_text,
+    cross
 }

@@ -23,7 +23,6 @@ import Images from "../../utils/libs/constants/Images";
 const SignIn = () => {
 
   const [pmdc, setpmcd] = useState('')
-  const [password, setPassword] = useState('')
   const navigation = useNavigation();
 
   return (

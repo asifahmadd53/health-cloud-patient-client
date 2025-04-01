@@ -1,6 +1,12 @@
 import _Profile from "./Profile/Profile"
 export const UserProfile = _Profile;
 
+import _EditProfile from "./Profile/EditProfile";
+export const EditProfile = _EditProfile
+
+import _AddDocuments from "./Profile/AddDocuments";
+export const AddDocuments = _AddDocuments;
+
 import _Appointments from './Appointmetns/Appointments'
 export const Appointments = _Appointments;
 
