@@ -54,7 +54,7 @@ const DrawerLayout = () => {
       }}
       
       />
-      <Drawer.Screen name="My Family" component={Family}
+      {/* <Drawer.Screen name="My Family" component={Family}
       options={{
         drawerIcon:()=>(
           <View className='w-10 h-10 items-center justify-center rounded-full'>
@@ -70,7 +70,7 @@ const DrawerLayout = () => {
         
       }}
       
-      />
+      /> */}
       <Drawer.Screen name="Privacy" component={Privacy} 
       options={{
         drawerIcon:()=>(

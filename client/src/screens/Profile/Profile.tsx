@@ -24,19 +24,37 @@ const Profile = () => {
                  </View>
 
 
-            <View className="flex-row my-4 gap-3">
-                   <View className=" p-2 rounded-full border-2 border-gray-300">
-                     <Image className="w-28 h-28 rounded-full bg-primary" resizeMode="contain" source={Images.manAvatar} />
-                   </View>
+            <View className="flex-col items-center my-4 gap-3 ">
+            <View className="relative p-2 rounded-full border-gray-300">
+  {/* Profile Image */}
+  <Image className="w-28 h-28 rounded-full bg-primary" resizeMode="contain" source={Images.manAvatar} />
+
+  {/* Tick Icon Positioned on Bottom-Right of Image */}
+  <Image className="w-8 h-8 bg-gray-400 rounded-full absolute bottom-1 right-1" source={Icons.tick} />
+</View>
+
                    <View>
-                   <Text className="text-lg font-semibold text-gray-900 mt-5">Muhammad Asif</Text>
+                   <Text className="text-lg font-bold text-gray-900 ">Muhammad Asif</Text>
                    <Text className="text-base text-gray-500 ">colony name Sahiwal</Text>
                    </View>
                  </View>
 
                 <View className='border'>
-                <View>
-                    <Text>10</Text>
+                <View className='border'>
+                    <View className=' flex-row justify-between p-3'>
+                      <Text className='text-2xl'>Edit Profile</Text>
+                      <Image className='w-8 h-8' source={Icons.right}/>
+                    </View>
+                    
+                    <View>
+                      <Text>Change Password</Text>
+                    </View>
+                    <View>
+                      <Text>Settings</Text>
+                    </View>
+                    <View>
+                      <Text>Logout</Text>
+                    </View>
                 </View>
                 </View>
 
