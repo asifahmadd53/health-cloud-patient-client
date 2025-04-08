@@ -33,5 +33,3 @@ const OTPVerification = () => {
 }
 
 export default OTPVerification
-
-const styles = StyleSheet.create({})
