@@ -79,7 +79,7 @@ const DrProfile = () => {
         <View className='flex-row items-center gap-4 mt-6 p-4 rounded-2xl shadow-sm bg-white '>
           <Image className='w-28 lg:w-36 lg:h-36 h-28 rounded-lg' source={Images.d2} />
           <View className="flex-1">
-            <Text className='font-bold text-xl text-gray-900 md:text-2xl'>Muhammad Ali</Text>
+            <Text className='font-bold text-xl text-gray-900 md:text-2xl'>Mariyam</Text>
             <Text className='text-base text-gray-600 lg:text-lg'>
               <Text className='text-black font-medium'>Surgeon</Text> at DHQ Hospital
             </Text>
