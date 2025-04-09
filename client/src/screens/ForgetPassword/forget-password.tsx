@@ -27,8 +27,6 @@ const ForgetPassword = () => {
         </Text>
       </View>
 
-      {/* Instruction */}
-     
 
       {/* Form Container */}
       <View className="flex-1 lg:w-4/5 lg:mx-auto">
@@ -51,7 +49,7 @@ const ForgetPassword = () => {
         </View>
       </View>
     </SafeAreaView>
-  )
-}
+  );
+};
 
 export default ForgetPassword

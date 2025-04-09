@@ -29,7 +29,7 @@ const Appointments = () => {
     const RECENT_DATA = [6, 7, 8, 9, 10];
 
     // Function to switch tabs with animation
-    const switchTab = (tab) => {
+    const switchTab = (tab:any) => {
         if (tab !== selectedTab) {
             opacity.value = withTiming(0, { duration: 150 }); // Fade out first
 
@@ -47,7 +47,7 @@ const Appointments = () => {
     };
 
     // Animated style for cards (staggered effect)
-    const animatedCardStyle = (index) =>
+    const animatedCardStyle = (index:number) =>
         useAnimatedStyle(() => ({
             opacity: withTiming(opacity.value, { duration: 500, delay: index * 100 }),
             transform: [

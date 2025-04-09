@@ -46,6 +46,7 @@ const SignIn = () => {
             <Text className="text-base text-gray-600 mt-1 lg:text-2xl">Give creadential to sign in your account</Text>
             <Text className="text-base md:text-lg font-semibold tracking-wider lg:text-2xl">Phone #</Text>
             <CustomInput placeholder={'Enter your Phone #'} icon={Icons.tick} value={pmdc} onChange={setpmcd} />
+            
             <Text className="text-base md:text-lg font-semibold tracking-wider lg:text-2xl">OTP Code</Text>
             <CustomPasswordInput placeholder={'Enter OTP '} value={password} onChange={setPassword} />
             <View className="items-end">
@@ -61,18 +62,8 @@ const SignIn = () => {
             <View className="mx-auto mt-2 items-center gap-5">
             </View>
 
-            {/* <View className="flex-row items-center my-4 px-3">
-              <View className="flex-1 border-b border-gray-300" />
-              <Text className="mx-2 text-gray-500 lg:text-xl">or continue with</Text>
-              <View className="flex-1 border-b border-gray-300" />
-            </View> */}
-            {/* <View className="w-[70%] mx-auto mt-6">
-              <Button buttonColor="#FFFFFF" contentStyle={{ borderColor: 'lightgray', borderWidth: 1, height: 60, borderRadius: 10 }} icon={() => <Image style={{ width: 24, height: 24, marginRight: 10 }} resizeMode="contain" source={Icons.google} />} mode="contained-tonal" style={{ borderRadius: 0 }}>
-                Sign in with Google
-              </Button>
-            </View> */}
             <Text onPress={() => navigation.navigate('sign-up')} className="text-[#253237] text-base font-medium text-center lg:text-xl">
-              Don’t have an account?<Text className="text-secondary"> Join us</Text>
+              Don’t have an account?<Text className="text-secondary">Join us</Text>
             </Text>
 
 

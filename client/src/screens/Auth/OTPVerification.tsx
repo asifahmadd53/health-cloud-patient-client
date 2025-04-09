@@ -2,12 +2,16 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { TextInput } from 'react-native-paper'
+import CustomButton from '../../components/CustomButton'
 
 const OTPVerification = () => {
   return (
-    <SafeAreaView className='px-5 bg-white flex-1 '>
+    <SafeAreaView className='px-5 bg-white flex-1'>
       <Text className='text-2xl text-center mt-20 font-semibold tracking-wider'>Verification</Text>
-      <Text className='text-center text-lg text-gray-600 my-5'>Enter the four digit code sent to your phone number +92 43423424</Text>
+      <Text className='text-center text-lg text-gray-600 my-5'>
+  Enter the 4-digit code sent to +92 43423424. Check your messages or spam folder if not received.
+</Text>
+
       <View className="flex-row gap-4 justify-center items-center mt-2">
   {[...Array(4)].map((_, index) => (
     <TextInput
@@ -25,9 +29,15 @@ const OTPVerification = () => {
   ))}
 </View>
 <Text className='text-base text-primary text-center mt-9'>
-    Did't get OTP code?
-</Text>
+    Didn’t get the OTP code?
+  </Text>
 <Text className='text-base text-secondary text-center mt-3'>Resend Code?</Text>
+
+<View className='mt-10'>
+<CustomButton link='drawer' label='Verify'/>
+
+</View>
+
     </SafeAreaView>
   )
 }
