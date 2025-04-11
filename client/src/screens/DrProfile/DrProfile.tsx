@@ -74,7 +74,7 @@ const DrProfile = () => {
       </View>
 
       {/* Profile Info */}
-      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: height * .11 }} showsVerticalScrollIndicator={false}>
+      <ScrollView style={{ flex: 1 }} contentContainerStyle={{ paddingBottom: height * .20 }} showsVerticalScrollIndicator={false}>
 
         <View className='flex-row items-center gap-4 mt-6 p-4 rounded-2xl shadow-sm bg-white '>
           <Image className='w-28 lg:w-36 lg:h-36 h-28 rounded-lg' source={Images.d2} />
