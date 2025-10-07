@@ -21,7 +21,7 @@ import paymentdone from '../../../assets/icons/approve.png'
 import rightIcon from '../../../assets/icons/chevron.png'
 import locker from '../../../assets/icons/lock_2.png'
 import tick from '../../../assets/icons/tick_1.png'
-import phone from '../../../assets/icons/telephone_1.png'
+import phone from '../../../assets/icons/phone.png'
 import email from '../../../assets/icons/email_2.png'
 import google from '../../../assets/icons/search.png'
 import list from '../../../assets/icons/list.png'
@@ -45,7 +45,7 @@ import next from '../../../assets/icons/next.png'
 import add_file from '../../../assets/icons/add_file.png' 
 import edit_text from '../../../assets/icons/edit_text.png' 
 import cross from '../../../assets/icons/cross.png' 
-
+import homeFilled from '../../../assets/icons/homeFilled.png'
 
 export default {
     rightIcon,
@@ -94,5 +94,6 @@ export default {
     next,
     add_file,
     edit_text,
-    cross
+    cross,
+    homeFilled
 }

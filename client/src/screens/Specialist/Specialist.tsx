@@ -1,5 +1,5 @@
 import { Image, Text, TouchableOpacity, View, FlatList, Dimensions, StyleSheet, ScrollView } from 'react-native';
-import React, { useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icons from '../../utils/libs/constants/Icons';
@@ -7,20 +7,20 @@ import Categories from '../../components/Categories';
 import CustomInput from '../../components/CustomInput';
 import ReactNativeModal from 'react-native-modal';
 import { Dropdown } from 'react-native-element-dropdown';
-import { CheckBox,Switch } from '@rneui/themed';
+import { CheckBox, Switch } from '@rneui/themed';
 import CustomButton from '../../components/CustomButton';
 import DoctorCard from '../../components/DoctorCard';
+import BottomSheet, { BottomSheetView } from '@gorhom/bottom-sheet';
+import Header from '../../components/Header';
 
 
 const { height } = Dimensions.get('window');
 
 const Specialist = () => {
     const navigation = useNavigation();
-    const DATA = [23, 2, 35, 245, 23, 2, 35, 245];
+    const DATA = [3, 2, 3, 2, 23, 2, 5, 2];
     const [search, setSearch] = useState('');
     const [isModalVisible, setModalVisible] = useState(false);
-    const [value, setValue] = useState(null);
-    const [checked, setChecked] = useState(false);
     const [selectedCity, setSelectedCity] = useState(null);
     const [selectedSpeciality, setSelectedSpeciality] = useState(null);
     const [sortFeeHighToLow, setSortFeeHighToLow] = useState(false);
@@ -29,13 +29,18 @@ const Specialist = () => {
     const [sortZA, setSortZA] = useState(false);
     const [isPopular, setIsPopular] = useState(false);
 
-    const {width, height} = Dimensions.get('window')
+    const bottomSheetRef = useRef<BottomSheet>(null);
+    const handleSheetChanges = useCallback((index: number) => {
+        console.log('handleSheetChanges', index);
+    }, []);
+
+    const { width, height } = Dimensions.get('window')
     const isTablet = width > 768
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
-    
+
     const data = [
         { label: 'Sahiwal', value: '1' },
         { label: 'Lahore', value: '2' },
@@ -60,7 +65,7 @@ const Specialist = () => {
         { label: 'Gastroenterologist', value: '15' }
     ];
 
-    
+
 
 
 
@@ -68,176 +73,181 @@ const Specialist = () => {
 
 
     return (
-        <SafeAreaView className="px-4 flex-1 bg-white">
-            {/* Header */}
-            <View className="flex-row items-center justify-between mt-6 py-3 lg:px-10">
-                               <TouchableOpacity
-                                 activeOpacity={0.9}
-                                 onPress={() => navigation.goBack()}
-                                 className="w-12 h-12 lg:w-14 lg:h-14 items-center justify-center bg-gray-200 rounded-full"
-                               >
-                                 <Image className="w-6 h-6 lg:w-9 lg:h-9" source={Icons.leftIcon} />
-                               </TouchableOpacity>
-                               <Text className="text-xl font-bold tracking-wide text-gray-900 text-center flex-1 lg:text-2xl">
-                                 Specialist
-                               </Text>
-                             </View>
+        <SafeAreaView className="flex-1 bg-white">
+          
+          <Header title='Specialist'/>
 
-            {/* Search Input */}
-
-            <View className='mt-7 py-1 lg:mt-10  flex-row justify-between items-center gap-3 lg:px-8'>
-                <View className='flex-1'>
-                <CustomInput icon={Icons.search} placeholder="Find a doctor" value={search} onChange={setSearch}/>
-                </View>
-                <TouchableOpacity activeOpacity={.90} onPress={toggleModal} className='bg-primary items-center justify-center px-5 lg:px-6 py-4 lg:py-5 rounded-lg'>
-                <Image className='w-7 h-7 lg:w-10 lg:h-10' source={Icons.filter} />
-            </TouchableOpacity>
-            </View>
-
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} className='flex-none mt-4 py-2 lg:px-8'>
-                
-                    <Categories title='All' icon={Icons.doctor}/>
-                    <Categories title='Cardiologist' icon={Icons.heart}/>
-                    <Categories title='Neurology' icon={Icons.brain}/>
-                    <Categories title='Eye Specialist' icon={Icons.eye}/>
-                    <Categories title='Dentist' icon={Icons.tooth}/>
-                  </ScrollView>
-
-            {/* Modal for Filters */}
-            <ReactNativeModal
-                isVisible={isModalVisible}
-                onBackdropPress={toggleModal}
-                style={{ justifyContent: 'flex-end', margin: 0,  }}
-            >
-                <View className="bg-white rounded-t-3xl p-5 shadow-lg lg:px-8">
-                    <Text className="text-xl font-bold text-center mb-6 lg:text-2xl lg:my-5">Select Filters</Text>
-
-                    {/* City Dropdown */}
-                    <Text className="text-base font-semibold mb-2 lg:text-xl">City</Text>
-                    <Dropdown
-                        style={{ backgroundColor: '#F0F0F0', borderRadius: 8, padding: isTablet ? 15 : 10 , paddingVertical: isTablet ? 22: 12 }}
-                        data={data}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Select City"
-                        searchPlaceholder="Search..."
-                        value={selectedCity}
-                        onChange={item => setSelectedCity(item.value)}
-                    />
-
-                    {/* Speciality Dropdown */}
-                    <Text className="text-base font-semibold mt-4 mb-2 lg:text-xl">Speciality</Text>
-                    <Dropdown
-                       style={{ backgroundColor: '#F0F0F0', borderRadius: 8, padding: isTablet ? 15 : 10 , paddingVertical: isTablet ? 22: 12 }}
-                        data={Speciality}
-                        search
-                        maxHeight={300}
-                        labelField="label"
-                        valueField="value"
-                        placeholder="Select Speciality"
-                        searchPlaceholder="Search..."
-                        value={selectedSpeciality}
-                        onChange={item => setSelectedSpeciality(item.value)}
-                    />
-                    
-                    {/* Popularity Switch */}
-                    <View className="flex-row justify-between items-center mt-4">
-                        <Text className="text-base font-semibold text-gray-800 lg:text-xl">Most Popular</Text>
-                        <Switch
-                         className='scale-125'
-                            value={isPopular}
-                            onValueChange={setIsPopular}
-                            trackColor={{ false: "#D1D5DB", true: "#2895cb" }} // Gray when off, blue when on
-                            thumbColor={isPopular ? "#2C415C" : "#A0A0A0"} // White when on, light gray when off
+           <View className='px-4 flex-1'>
+                <View className='mt-7 lg:mt-10 flex-row gap-3 lg:px-8 items-center'>
+                    <View className='flex-1'>
+                        <CustomInput
+                            icon={Icons.search}
+                            placeholder="Find a doctor"
+                            value={search}
+                            onChangeText={setSearch}
                         />
                     </View>
 
-
-
-                    <Text className="text-base font-semibold mt-4 mb-2 lg:text-xl">Sort by Fee</Text>
-                    <View className="flex-row justify-between">
-                        <CheckBox
-                            
-                            
-                            title="High to Low"
-                            checked={sortFeeHighToLow}
-                            onPress={() => {
-                                setSortFeeHighToLow(!sortFeeHighToLow);
-                                setSortFeeLowToHigh(false);
-                            }}
-                            textStyle={{ fontSize: isTablet ? 22 : 15 , fontWeight: 'bold', color: '#333' }} 
-                            titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
-    containerStyle={{ backgroundColor: 'transparent', borderWidth: 0}}        
-                        />
-                        <CheckBox
-                          
-                            title="Low to High"
-                            checked={sortFeeLowToHigh}
-                            onPress={() => {
-                                setSortFeeLowToHigh(!sortFeeLowToHigh);
-                                setSortFeeHighToLow(false);
-                            }}
-                            textStyle={{ fontSize: isTablet ? 22 : 15 , fontWeight: 'bold', color: '#333' }} 
-                            titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
-    containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-                        />
-                    </View>
-
-                    {/* Name Sorting */}
-                    <Text className="text-base font-semibold mt-4 mb-2">Sort by Name</Text>
-                    <View className="flex-row justify-between">
-                        <CheckBox
-                        
-                           
-                            title="A to Z"
-                            checked={sortAZ}
-                            onPress={() => {
-                                setSortAZ(!sortAZ);
-                                setSortZA(false);
-                            }}
-                            textStyle={{ fontSize: isTablet ? 22 : 15 , fontWeight: 'bold', color: '#333' }} 
-                            titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
-    containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-                        />
-                        <CheckBox
-                           
-                          
-                            title="Z to A"
-                            checked={sortZA}
-                            onPress={() => {
-                                setSortZA(!sortZA);
-                                setSortAZ(false);
-                            }}
-                            textStyle={{ fontSize: isTablet ? 22 : 15 , fontWeight: 'bold', color: '#333' }} 
-                            titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
-    containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
-                        />
-                    </View>
-
-                    {/* Apply Filters Button */}
-                    <View className='my-4'>
-                        <CustomButton label='Apply Filters' />
+                    {/* Filter Button */}
+                    <View>
+                        <TouchableOpacity
+                            activeOpacity={0.9}
+                            onPress={() => bottomSheetRef.current?.expand()}
+                            className='bg-primary p-3 rounded-md '
+                        >
+                            <Image
+                                className='w-7 h-7 lg:w-10 lg:h-10'
+                                source={Icons.filter}
+                            />
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </ReactNativeModal>
+
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} className='flex-none py-2 lg:px-8'>
+
+                    <Categories title='All' icon={Icons.doctor} />
+                    <Categories title='Cardiologist' icon={Icons.heart} />
+                    <Categories title='Neurology' icon={Icons.brain} />
+                    <Categories title='Eye Specialist' icon={Icons.eye} />
+                    <Categories title='Dentist' icon={Icons.tooth} />
+                </ScrollView>
+
+               
+                <FlatList
+                    showsVerticalScrollIndicator={false}
+                    className="flex-1 mt-5 px-2 lg:px-8"
+                    data={DATA}
+                    contentContainerStyle={{paddingBottom:10}}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item }) => <DoctorCard />}
+                />
+                <BottomSheet
+                    ref={bottomSheetRef}
+                    snapPoints={['50%']}
+                    index={-1}
+                    enablePanDownToClose
+                    onChange={handleSheetChanges}
+                    backgroundStyle={{backgroundColor:'white'}}
+                >
+                    <BottomSheetView className='px-5' style={{ flex: 1, padding: 16 }}>
+                        <Text className="text-xl font-bold text-center mb-6 lg:text-2xl lg:my-5">Select Filters</Text>
+                        <Text className="text-base font-semibold mb-2 lg:text-xl">City</Text>
+                        <Dropdown
+                            style={{ backgroundColor: '#F0F0F0', borderRadius: 8, padding: isTablet ? 15 : 10, paddingVertical: isTablet ? 22 : 12 }}
+                            data={data}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="Select City"
+                            searchPlaceholder="Search..."
+                            value={selectedCity}
+                            onChange={item => setSelectedCity(item.value)}
+                        />
+
+                        {/* Speciality Dropdown */}
+                        <Text className="text-base font-semibold mt-4 mb-2 lg:text-xl">Speciality</Text>
+                        <Dropdown
+                            style={{ backgroundColor: '#F0F0F0', borderRadius: 8, padding: isTablet ? 15 : 10, paddingVertical: isTablet ? 22 : 12 }}
+                            data={Speciality}
+                            search
+                            maxHeight={300}
+                            labelField="label"
+                            valueField="value"
+                            placeholder="Select Speciality"
+                            searchPlaceholder="Search..."
+                            value={selectedSpeciality}
+                            onChange={item => setSelectedSpeciality(item.value)}
+                        />
+
+                        {/* Popularity Switch */}
+                        <View className="flex-row justify-between items-center mt-4">
+                            <Text className="text-base font-semibold text-gray-800 lg:text-xl">Most Popular</Text>
+                            <Switch
+                                className='scale-125'
+                                value={isPopular}
+                                onValueChange={setIsPopular}
+                                trackColor={{ false: "#D1D5DB", true: "#2895cb" }} // Gray when off, blue when on
+                                thumbColor={isPopular ? "#2C415C" : "#A0A0A0"} // White when on, light gray when off
+                            />
+                        </View>
+
+
+
+                        <Text className="text-base font-semibold mt-4 mb-2 lg:text-xl">Sort by Fee</Text>
+                        <View className="flex-row justify-between">
+                            <CheckBox
+
+
+                                title="High to Low"
+                                checked={sortFeeHighToLow}
+                                onPress={() => {
+                                    setSortFeeHighToLow(!sortFeeHighToLow);
+                                    setSortFeeLowToHigh(false);
+                                }}
+                                textStyle={{ fontSize: isTablet ? 22 : 15, fontWeight: 'bold', color: '#333' }}
+                                titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
+                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                            />
+                            <CheckBox
+
+                                title="Low to High"
+                                checked={sortFeeLowToHigh}
+                                onPress={() => {
+                                    setSortFeeLowToHigh(!sortFeeLowToHigh);
+                                    setSortFeeHighToLow(false);
+                                }}
+                                textStyle={{ fontSize: isTablet ? 22 : 15, fontWeight: 'bold', color: '#333' }}
+                                titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
+                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                            />
+                        </View>
+
+                        {/* Name Sorting */}
+                        <Text className="text-base font-semibold mt-4 mb-2">Sort by Name</Text>
+                        <View className="flex-row justify-between">
+                            <CheckBox
+
+
+                                title="A to Z"
+                                checked={sortAZ}
+                                onPress={() => {
+                                    setSortAZ(!sortAZ);
+                                    setSortZA(false);
+                                }}
+                                textStyle={{ fontSize: isTablet ? 22 : 15, fontWeight: 'bold', color: '#333' }}
+                                titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
+                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                            />
+                            <CheckBox
+
+
+                                title="Z to A"
+                                checked={sortZA}
+                                onPress={() => {
+                                    setSortZA(!sortZA);
+                                    setSortAZ(false);
+                                }}
+                                textStyle={{ fontSize: isTablet ? 22 : 15, fontWeight: 'bold', color: '#333' }}
+                                titleProps={{ numberOfLines: 1 }} // Explicitly setting props for the title
+                                containerStyle={{ backgroundColor: 'transparent', borderWidth: 0 }}
+                            />
+                        </View>
+
+                       
+                        <View className='my-4'>
+                            <CustomButton label='Apply Filters' />
+                        </View>
+
+                    </BottomSheetView>
+                </BottomSheet>
+           </View>
 
 
 
 
 
 
-
-            {/* List of Doctors */}
-            <FlatList
-    showsVerticalScrollIndicator={false}
-    style={{ maxHeight: height * 0.65 }}
-    className="px-2 mt-5 lg:px-8"
-    data={DATA}
-    keyExtractor={(item, index) => index.toString()} // Ensure unique keys
-    renderItem={({ item }) => <DoctorCard data={item} />} // Pass the required props
-/>
 
         </SafeAreaView>
     );

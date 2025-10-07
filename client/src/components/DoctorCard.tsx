@@ -10,14 +10,12 @@ const { width } = Dimensions.get('window');
 const isTablet  =  width > 768
 
 const DoctorCard = () => {
-    const navigation = useNavigation()
+    const navigation:any = useNavigation()
     return (
-        <TouchableOpacity activeOpacity={1} onPress={() =>navigation.navigate('DrProfileRoutes')
-        }
->
-            <View className="flex-row items-center bg-white border border-slate-300 shadow-md rounded-2xl p-5 mb-4 shadow-slate-400">
-            {/* Doctor Image */}
-            <Image 
+        <TouchableOpacity activeOpacity={.90} onPress={() =>navigation.navigate('DrProfileRoutes')
+        }>
+            <View className="flex-row items-center bg-white border border-slate-200 shadow-md rounded-2xl p-4 mb-4 shadow-slate-200">
+            <Image
                 className="rounded-full border border-gray-200"
                 style={{width: isTablet ? 80 : 60, height: isTablet ? 80 : 60 }}
                 source={Images.d3} 

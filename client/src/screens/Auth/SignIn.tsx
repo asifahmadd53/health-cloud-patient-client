@@ -1,4 +1,3 @@
-import { Link } from "expo-router";
 import {
 
   Text,
@@ -23,10 +22,11 @@ import Images from "../../utils/libs/constants/Images";
 const SignIn = () => {
 
   const [pmdc, setpmcd] = useState('')
+  const [password, setPassword] = useState(false)
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView className="bg-white px-5 min-h-screen ">
+    <SafeAreaView className="bg-white px-4 min-h-screen ">
       <View className="flex-grow pb-5 ">
         <KeyboardAvoidingView>
           <View className="pt-20 ">
@@ -45,7 +45,7 @@ const SignIn = () => {
             </Text>
             <Text className="text-base text-gray-600 mt-1 lg:text-2xl">Give creadential to sign in your account</Text>
             <Text className="text-base md:text-lg font-semibold tracking-wider lg:text-2xl">Phone #</Text>
-            <CustomInput placeholder={'Enter your Phone #'} icon={Icons.tick} value={pmdc} onChange={setpmcd} />
+            <CustomInput icon="phone" placeholder={'Enter your Phone #'} value={pmdc} onChangeText={setpmcd} />
             
             <Text className="text-base md:text-lg font-semibold tracking-wider lg:text-2xl">OTP Code</Text>
             <CustomPasswordInput placeholder={'Enter OTP '} value={password} onChange={setPassword} />

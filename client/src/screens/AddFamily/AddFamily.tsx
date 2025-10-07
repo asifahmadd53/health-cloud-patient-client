@@ -8,6 +8,7 @@ import { Dropdown } from 'react-native-element-dropdown'
 import Icons from '../../utils/libs/constants/Icons';
 import CustomSimpleInput from '../../components/CustomSimpleInput';
 import CustomButton from '../../components/CustomButton';
+import CustomInput from '../../components/CustomInput';
 
 
 const AddFamily = () => {
@@ -43,9 +44,9 @@ const AddFamily = () => {
       </View>
 
       <View className='mt-5'>
-        <CustomSimpleInput label={'Name'} placeholder={'Enter Full Name'} value={name} onChange={setName}/>
-        <CustomSimpleInput label={'Your Relationship'} placeholder={'Enter Full Name'} onChange={setRelation} value={relation}/>
-        <CustomSimpleInput label={'Age'} placeholder={'Enter Full Name'} onChange={setAge} value={age}/>
+        <CustomInput label={'Name'} placeholder={'Enter Full Name'} value={name} onChangeText={setName}/>
+        <CustomInput label={'Your Relationship'} placeholder={'Enter Full Name'} onChangeText={setRelation} value={relation}/>
+        <CustomInput label={'Age'} placeholder={'Enter Full Name'} onChangeText={setAge} value={age}/>
         <View className=''>
             <Text className='font-semibold'>Gender</Text>
             <View className='flex-row gap-8'>
@@ -70,26 +71,37 @@ const AddFamily = () => {
             </View>
             <Text className='font-semibold text-base my-3'>Gender</Text>
             <Dropdown
-            style={styles.dropdown}
-            placeholderStyle={styles.placeholderStyle}
-            selectedTextStyle={styles.selectedTextStyle}
-            inputSearchStyle={styles.inputSearchStyle}
-            iconStyle={styles.iconStyle}
+            containerStyle={{ borderRadius: 8 }}
+            style={styles.consistentDropdown}
+            placeholderStyle={styles.consistentPlaceholder}
+            selectedTextStyle={styles.consistentSelectedText}
+            inputSearchStyle={styles.consistentInputSearch}
+            iconStyle={styles.consistentIcon}
+            itemTextStyle={styles.consistentItemText}
         data={data}
-        search
-        maxHeight={300}
-        labelField="label"
-        valueField="value"
-        placeholder="Select item"
+            search={false}
+            maxHeight={300}
+            labelField="value"
+            valueField="value"
+            placeholder="Select"
         searchPlaceholder="Search..."
         value={value}
         onChange={item => {
           setValue(item.value);
         }}
+            renderItem={item => (
+              <View style={styles.dropdownItemContainer}>
+                <Text
+                  style={styles.dropdownItemText}
+                  numberOfLines={2}>
+                  {item.value}
+                </Text>
+              </View>
+            )}
         
       />
       <View className='my-4'>
-      <CustomSimpleInput label={'Any prediagnosed Disease'} placeholder={'Dibetic, Hypertension, etc'} value={disease} onChange={setDisease}/>
+      <CustomInput label={'Any prediagnosed Disease'} placeholder={'Dibetic, Hypertension, etc'} value={disease} onChangeText={setDisease}/>
       </View>
         </View>
       </View>
@@ -101,28 +113,119 @@ const AddFamily = () => {
 export default AddFamily
 
 const styles = StyleSheet.create({
-  dropdown: {
-    height: 55,
-    borderWidth:1,
-    paddingHorizontal:15,
-    borderRadius:12,
-    borderColor: 'lightgray',
+  consistentDropdown: {
+    height: 50,
+    backgroundColor: '#fff',
+    borderRadius: 7,
+    paddingHorizontal: 10,
+    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: '#d1d5db',
   },
-  icon: {
-    marginRight: 5,
+  consistentPlaceholder: {
+    fontSize: 16,
+    color: '#9ca3af',
+  },
+  consistentSelectedText: {
+    fontSize: 16,
+    color: 'black',
+  },
+  consistentInputSearch: {
+    height: 48,
+    fontSize: 16,
+    borderRadius: 7,
+    color: 'black',
+  },
+  consistentIcon: {
+    tintColor: '#9ca3af',
+  },
+  consistentItemText: {
+    fontSize: 16,
+    color: 'black',
+  },
+
+  dropdownItemContainer: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f3f4f6',
+    minHeight: 48,
+    justifyContent: 'center',
+  },
+  dropdownItemText: {
+    fontSize: 16,
+    color: '#1f2937',
+    flexWrap: 'wrap',
+    lineHeight: 20,
+  },
+  // Legacy styles (keeping for compatibility)
+  dropdown: {
+    height: 56,
+    backgroundColor: 'white',
+    borderRadius: 12,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
   },
   placeholderStyle: {
     fontSize: 16,
+    color: '#9ca3af',
   },
   selectedTextStyle: {
     fontSize: 16,
-  },
-  iconStyle: {
-    width: 20,
-    height: 20,
+    color: '#1f2937',
   },
   inputSearchStyle: {
-    height: 40,
+    height: 48,
     fontSize: 16,
+    borderRadius: 8,
+  },
+  inputWrapper: {
+    width: '100%',
+  },
+  splitInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    borderRadius: 12,
+    backgroundColor: 'white',
+    overflow: 'hidden',
+  },
+  splitInputRight: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    height: 56,
+    borderLeftWidth: 1,
+    borderLeftColor: '#e5e7eb',
+  },
+  dropdownText: {
+    fontSize: 16,
+    color: '#9ca3af',
+  },
+  dropdownList: {
+    maxHeight: 200,
+    borderRadius: 12,
+    position: 'absolute',
+    right: 0,
+    top: '100%',
+    width: '50%',
+    backgroundColor: 'white',
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+    zIndex: 50,
+    marginTop: 4,
+  },
+  dropdownItem: {
+    padding: 12,
+    borderBottomWidth: 1,
+    borderBottomColor: '#f3f4f6',
   },
 });

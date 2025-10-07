@@ -1,58 +1,148 @@
-import {Text, TouchableOpacity, View,Image } from 'react-native'
-import React, { useState } from 'react'
-import Icons from '../../utils/libs/constants/Icons'
-import { useNavigation } from '@react-navigation/native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import CustomSimpleInput from '../../components/CustomSimpleInput'
-import CustomButton from '../../components/CustomButton'
-import Images from '../../utils/libs/constants/Images'
+import React, { useState } from 'react';
+import {
+    Text,
+    TouchableOpacity,
+    View,
+    Image,
+    Platform,
+    ScrollView,
+} from 'react-native';
+import Icons from '../../utils/libs/constants/Icons';
+import Images from '../../utils/libs/constants/Images';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import CustomButton from '../../components/CustomButton';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import CustomInput from '../../components/CustomInput';
+import Header from '../../components/Header';
+
+type Gender = 'Male' | 'Female' | '';
+type Marital = 'Single' | 'Married' | '';
 
 const EditProfile = () => {
-    const navigation = useNavigation()
+    const navigation = useNavigation();
+
+    /* ---------- form state ---------- */
     const [fullName, setFullName] = useState('Muhammad Asif');
-    const [currentPassword, setCurrentPassword] = useState('');
-    const [newPassword, setNewPassword] = useState('');
-    const [newAddress,setNewAddress] = useState('')
-  return (
-      <SafeAreaView className='px-5 bg-white flex-1 lg:px-10'>
-                  {/* Header */}
-                  <View className="flex-row items-center justify-between mt-6 relative">
-                      <TouchableOpacity
-                          activeOpacity={0.9}
-                          onPress={() => navigation.goBack()}
-                          className="w-12 h-12 items-center justify-center bg-gray-200 rounded-full shadow-sm"
-                      >
-                          <Image className="w-6 h-6" source={Icons.leftIcon} />
-                      </TouchableOpacity>
-      
-                      {/* Centered Title */}
-                      <View className="absolute left-0 right-0 items-center">
-                          <Text className="text-xl font-semibold text-gray-800 tracking-wide">
-                              Edit Profile
-                          </Text>
-                      </View>
-                  </View>
+    const [address, setAddress] = useState('');
+    const [gender, setGender] = useState<Gender>('');
+    const [marital, setMarital] = useState<Marital>('');
+    const [dob, setDob] = useState<Date | undefined>(undefined);
+    const [showCal, setShowCal] = useState(false);
 
-                <View className='pt-10 pb-8'>
-                    <View className="flex-col items-center my-4 gap-3 ">
-                           <View className="relative p-2 rounded-full border-gray-300">
-                             {/* Profile Image */}
-                             <Image className="w-28 h-28 rounded-full bg-primary" resizeMode="contain" source={Images.manAvatar} />
-                   
-                             {/* Tick Icon Positioned on Bottom-Right of Image */}
-                             <Image className="w-7 h-7  bg-secondary rounded-full absolute bottom-1 right-1" source={Icons.edit_text} />
-                           </View>
-                         </View>
+    /* ---------- helpers ---------- */
+    const formatDate = (d: Date | undefined) =>
+        d ? d.toLocaleDateString() : 'Select date';
 
-                         <CustomSimpleInput label={'Full Name'} placeholder={'Enter your full name'} value={fullName} onChange={setFullName} />
-                <CustomSimpleInput label={'Current Password'} placeholder={'Enter current password'}  value={currentPassword} onChange={setCurrentPassword} />
-                <CustomSimpleInput label={'New Password'} placeholder={'Enter new password'}  value={newPassword} onChange={setNewPassword} />
-                <CustomSimpleInput label={'Address'} placeholder={'Enter new Address'}  value={newAddress} onChange={setNewAddress} />
+    /* ---------- UI ---------- */
+    return (
+        <SafeAreaView className="flex-1 bg-white">
+            <Header title='Edit Profile'/>
+            <ScrollView
+                className="px-5 lg:px-10"
+                contentContainerStyle={{ paddingBottom: 40 }}
+                showsVerticalScrollIndicator={false}
+            >
+                <View className="items-center my-6">
+                    <View className="relative">
+                        <Image
+                            className="w-24 h-24 rounded-full bg-primary"
+                            resizeMode="contain"
+                            source={Images.manAvatar}
+                        />
+                        <TouchableOpacity
+                            activeOpacity={0.85}
+                            className="absolute -bottom-1 -right-1 w-8 h-8 bg-secondary rounded-full items-center justify-center border-2 border-white"
+                        >
+                            <Image
+                                className="w-4 h-4 tint-white"
+                                source={Icons.edit_text}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <CustomButton label='Update Profile'/>
 
-      </SafeAreaView>
-  )
-}
+                <CustomInput
+                    label="Full Name"
+                    placeholder="Enter your full name"
+                    value={fullName}
+                    onChangeText={setFullName}
+                />
+                <Text className="text-sm font-medium text-gray-700  mb-2">Gender</Text>
+                <View className="flex-row gap-3">
+                    {([
+                        { label: 'Male', value: 'Male' as Gender, activeColor: 'bg-blue-500' },
+                        { label: 'Female', value: 'Female' as Gender, activeColor: 'bg-pink-500' },
+                    ]).map(({ label, value, activeColor }) => (
+                        <TouchableOpacity
+                            key={value}
+                            onPress={() => setGender(value)}
+                            activeOpacity={0.85}
+                            className={`flex-1 py-3.5 rounded-xl items-center ${gender === value ? activeColor : 'bg-gray-100'
+                                }`}
+                        >
+                            <Text className={`font-medium ${gender === value ? 'text-white' : 'text-gray-700'}`}>
+                                {label}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+                
+                <Text className="text-sm font-medium text-gray-700 mt-5 mb-2">
+                    Marital Status (optional)
+                </Text>
+                <View className="flex-row gap-3">
+                    {(['Single', 'Married'] as Marital[]).map((m) => (
+                        <TouchableOpacity
+                            key={m}
+                            onPress={() => setMarital(m)}
+                            activeOpacity={0.85}
+                            className={`flex-1 py-3.5 rounded-xl items-center ${marital === m ? 'bg-blue-500' : 'bg-gray-100'
+                                }`}
+                        >
+                            <Text
+                                className={`font-medium ${marital === m ? 'text-white' : 'text-gray-700'
+                                    }`}
+                            >
+                                {m}
+                            </Text>
+                        </TouchableOpacity>
+                    ))}
+                </View>
 
-export default EditProfile
+                {/* -------------- Date of Birth -------------- */}
+                <Text className="text-sm font-medium text-gray-700 mt-5 mb-2">
+                    Date of Birth (optional)
+                </Text>
+                <TouchableOpacity
+                style={{backgroundColor:"white"}}
+                    activeOpacity={0.85}
+                    onPress={() => setShowCal(true)}
+                    className="border border-gray-300 rounded-lg px-4 py-4 bg-white justify-center"
+                >
+                    <Text className="text-gray-700">{formatDate(dob)}</Text>
+                </TouchableOpacity>
+
+                {showCal && (
+                    <DateTimePicker
+                        value={dob || new Date()}
+                        mode="date"
+                        display={Platform.OS === 'ios' ? 'spinner' : 'default'}
+                        maximumDate={new Date()}
+                        onChange={(_e, selected) => {
+                            setShowCal(false);
+                            selected && setDob(selected);
+                        }}
+                    />
+                )}
+
+                
+            </ScrollView>
+            <View className="mb-4 items-center justify-center">
+                <CustomButton label="Update Profile" />
+            </View>
+        </SafeAreaView>
+    );
+};
+
+export default EditProfile;

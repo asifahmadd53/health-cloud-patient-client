@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Notifications from '../../screens/Tabs/Notifications';
 import MyFamily from '../../screens/Tabs/MyFamily';
 import Icons from '../../utils/libs/constants/Icons';
-import DashBoard from '../../screens/Tabs/dashboard';
+import DashBoard from '../../screens/Tabs/Dashboard';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,9 +29,7 @@ const TabLayout = () => {
             backgroundColor: '#f8f9fa',
             borderTopWidth: 1,
             borderTopColor: '#e0e0e0',
-           
           },
-          
           tabBarLabelStyle: {
             fontSize: 12,
             fontWeight: '600',
@@ -52,11 +50,11 @@ const TabLayout = () => {
           }}
         />
         <Tab.Screen
-          name="Notifications"
+          name="Appointments"
           component={Notifications}
           options={{
             tabBarIcon: () => <Image className="w-6 h-6" source={Icons.home} />,
-            tabBarLabel: 'Notifications',
+            tabBarLabel: 'Appointments',
           }}
         />
         <Tab.Screen

@@ -12,7 +12,6 @@ const { height } = Dimensions.get('window');
 const MyFamily = () => {
   const navigation = useNavigation();
   
-  // Sample Data (Replace with actual family data)
   const familyMembers = [
     { id: 1, name: 'Mariyam', relation: 'Sister', avatar: Images.womanAvatar },
     { id: 2, name: 'Rumaisa', relation: 'Sister', avatar: Images.womanAvatar },

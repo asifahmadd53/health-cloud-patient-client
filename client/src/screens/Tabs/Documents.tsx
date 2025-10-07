@@ -5,8 +5,6 @@ import { ProgressBar } from 'react-native-paper';
 import CustomHeader from '../../components/CustomHeader';
 import Icons from '../../utils/libs/constants/Icons';
 
-
-
 const Documents = () => {
     const [documents, setDocuments] = useState(false)
     const [reports, setReports] = useState(false)

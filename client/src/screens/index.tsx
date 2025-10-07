@@ -4,10 +4,10 @@ export const UserProfile = _Profile;
 import _EditProfile from "./Profile/EditProfile";
 export const EditProfile = _EditProfile
 
-import _AddDocuments from "./Profile/AddDocuments";
+import _AddDocuments from "./Documents/AddDocuments";
 export const AddDocuments = _AddDocuments;
 
-import _Appointments from './Appointmetns/Appointments'
+import _Appointments from './Appointmetns/RecentAppointments'
 export const Appointments = _Appointments;
 
 import _AddFamily from './AddFamily/AddFamily'

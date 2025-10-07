@@ -5,6 +5,7 @@ import AppLayout from './navigation';
 import 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
 import { ThemeProvider } from '@rneui/themed';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 
 const RootLayout = () => {
@@ -19,7 +20,9 @@ const RootLayout = () => {
       <NavigationContainer>
         <ThemeProvider>
           <PaperProvider>
+            <GestureHandlerRootView style={{ flex: 1 }}>
             <AppLayout />
+            </GestureHandlerRootView>
           </PaperProvider>
         </ThemeProvider>
 

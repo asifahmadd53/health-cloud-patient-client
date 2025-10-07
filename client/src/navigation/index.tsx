@@ -4,7 +4,10 @@ import AuthLayout from './AuthNavigation';
 import DrawerLayout from './DrawerNavigation';
 import TabLayout from './TabNavigation';
 import HomeRoutes from './Main/HomeRoutes';
-import DrProfileRoutes from './DrProfileNavigation/DrProfileRoutes';
+import DrProfileLayout from './DrProfileNavigation/DrProfileRoutes';
+import FamilyLayout from './FamilyNavigation';
+import TopTabsLayout from './TopTabsNavigation';
+import DocumentsLayout from './DocumentsNavigation';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,7 +18,14 @@ const AppLayout = () => {
       <Stack.Screen name="drawer" component={DrawerLayout} />
       <Stack.Screen name="tabs" component={TabLayout} />
       <Stack.Screen name="home" component={HomeRoutes} />
-      <Stack.Screen name="DrProfileRoutes" component={DrProfileRoutes} />
+      <Stack.Screen name="DrProfileRoutes" component={DrProfileLayout} />
+      <Stack.Screen name='AddFamilyLayout' component={FamilyLayout} />
+      <Stack.Screen
+        name="AppointmentsRoutes"
+        component={TopTabsLayout}
+        options={{ headerShown: false, title: 'Appointments' }}
+      />
+      <Stack.Screen name='DocumentLayout' component={DocumentsLayout}/>
     </Stack.Navigator>
   );
 };
