@@ -45,7 +45,14 @@ import next from '../../../assets/icons/next.png'
 import add_file from '../../../assets/icons/add_file.png' 
 import edit_text from '../../../assets/icons/edit_text.png' 
 import cross from '../../../assets/icons/cross.png' 
-import homeFilled from '../../../assets/icons/homeFilled.png'
+import homeFilled from '../../../assets/icons/home-filled.png'
+import homeOutline from '../../../assets/icons/home-outline.png'
+import appointmentOutline from '../../../assets/icons/appointment-outline.png'
+import appointmentFilled from '../../../assets/icons/appointment-filled.png'
+import documentOutline from '../../../assets/icons/document-outline.png'
+import documentFilled from '../../../assets/icons/document-filled.png'
+import profileFilled from '../../../assets/icons/profile-filled.png'
+import profileOutline from '../../../assets/icons/profile-outline.png'
 
 export default {
     rightIcon,
@@ -95,5 +102,12 @@ export default {
     add_file,
     edit_text,
     cross,
-    homeFilled
+    homeFilled,
+    homeOutline,
+    appointmentOutline,
+    appointmentFilled,
+    documentFilled,
+    documentOutline,
+    profileFilled,
+    profileOutline
 }

@@ -19,6 +19,9 @@ import Svg, { Circle } from 'react-native-svg';
 import Animated, { useSharedValue, useAnimatedProps, withTiming } from 'react-native-reanimated';
 import { useEffect } from 'react';
 import LocationIcon from "../../assets/icons/location-svgrepo-com.svg";
+import Banner from '../../components/Banner';
+import WhyMarham from '../../components/WhyMarham';
+import PhoneVideo from '../../components/PhoneVideo';
 
 const { width } = Dimensions.get('window');
 
@@ -59,12 +62,30 @@ const DashBoard = () => {
  
   return (
     <SafeAreaView className="flex-1 bg-white px-5 lg:px-12">
-      <View className="flex-row items-center justify-between w-full mt-7">
+      <View className="flex-row items-center justify-between w-full mt-4">
         <CustomHeader />
         <Text className="text-center flex-1 font-bold text-lg lg:text-2xl">Hello Asif</Text>
-        <TouchableOpacity className='shadow-sm' activeOpacity={0.91}   onPress={() => navigation.navigate('home', { screen: 'ProfileRoutes', params: { screen: 'UserProfile' } })}
+        <TouchableOpacity
+          activeOpacity={0.9}
+          onPress={() =>
+            navigation.navigate('home', {
+              screen: 'ProfileRoutes',
+              params: { screen: 'UserProfile' },
+            })
+          }
+          className="bg-white/90 rounded-full p-1.5 shadow-sm shadow-black/10 border border-neutral-200"
+          style={{
+            elevation: 3,
+            shadowOffset: { width: 0, height: 1 },
+            shadowOpacity: 0.08,
+            shadowRadius: 2,
+          }}
         >
-          <Avatar.Image size={isTablet ? 40 : 28} source={Images.manAvatar} />
+          <Avatar.Image
+            size={isTablet ? 38 : 26}
+            source={Images.manAvatar}
+            className="rounded-full"
+          />
         </TouchableOpacity>
       </View>
       <View className="flex-row items-center justify-between px-1 py-4">
@@ -220,6 +241,25 @@ const DashBoard = () => {
           style={{ flexGrow: 0, height: 110 }}
         />
 
+        <View className="mt-2">
+          <Banner />
+        </View>
+
+        
+
+        <View className="mt-4 w-full flex-row gap-2 items-center">
+          <View style={{ flex: 1 }} className="w-full">
+            <WhyMarham />
+          </View>
+          <View className="mt-4">
+            <PhoneVideo
+              posterUri="https://images.unsplash.com/photo-1638202993928-7267aad84c31?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+              videoUri="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+            />
+          </View>
+          
+        </View>
+
       </ScrollView>
 
       <BottomSheet
@@ -254,7 +294,7 @@ const DashBoard = () => {
           </View>
         </BottomSheetView>
       </BottomSheet>
-
+      
 
 
     </SafeAreaView>

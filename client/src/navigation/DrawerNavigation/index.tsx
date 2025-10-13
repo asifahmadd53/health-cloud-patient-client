@@ -2,10 +2,14 @@ import { createDrawerNavigator } from "@react-navigation/drawer"
 import { View, Text, Image, TouchableOpacity } from "react-native"
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer"
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
+import MaterialIcons from "react-native-vector-icons/MaterialIcons"
+import FeatherIcons from "react-native-vector-icons/Feather"
 import Images from "../../utils/libs/constants/Images"
 import TabLayout from "../TabNavigation"
 import Privacy from "../../screens/Drawer/privacy"
 import Help from "../../screens/Drawer/help"
+import MyFamily from "../../screens/Tabs/MyFamily"
+import Profile from "../../screens/Profile/Profile"
 
 const Drawer = createDrawerNavigator()
 
@@ -44,15 +48,53 @@ const DrawerLayout = () => {
           fontSize: 16,
           fontWeight: "500",
         },
-        drawerStyle: {
-          width: 300,
-        },
+        // drawerStyle: {
+        //   width: 350,
+        // },
         drawerActiveBackgroundColor: "transparent",
         drawerActiveTintColor: "#000",
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
       <Drawer.Screen name="Home" component={TabLayout} options={{ drawerItemStyle: { display: "none" } }} />
+      <Drawer.Screen
+        name="profile"
+        component={Profile}
+        options={{
+          drawerIcon: ({ color, focused }) => (
+            <View className={`w-10 h-10 items-center justify-center rounded-full`}>
+              <FeatherIcons name="user" size={24} color={color} />
+            </View>
+          ),
+          drawerLabel: ({ color }) => (
+            <View className="flex-row justify-between items-center w-full ">
+              <Text className="text-lg font-semibold">
+                Profile
+              </Text>
+              <MaterialCommunityIcons name="chevron-right" size={22} color={color} />
+            </View>
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="Add Family"
+        component={MyFamily}
+        options={{
+          drawerIcon: ({ color, focused }) => (
+            <View className={`w-10 h-10 items-center justify-center rounded-full`}>
+              <MaterialIcons name="person-add-alt" size={24} color={color} />
+            </View>
+          ),
+          drawerLabel: ({ color }) => (
+            <View className="flex-row justify-between items-center w-full ">
+              <Text className="text-lg font-semibold">
+                Add Family & Friends
+              </Text>
+              <MaterialCommunityIcons name="chevron-right" size={22} color={color} />
+            </View>
+          ),
+        }}
+      />
       <Drawer.Screen
         name="Privacy"
         component={Privacy}
@@ -92,6 +134,7 @@ const DrawerLayout = () => {
           ),
         }}
       />
+      
 
     </Drawer.Navigator>
   )

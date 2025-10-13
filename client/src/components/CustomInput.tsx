@@ -54,7 +54,7 @@ const CustomInput = ({
   return (
     <>
       {label ? (
-        <Text className="text-base font-semibold text-gray-700 mb-1">
+        <Text className="text-sm md:text-base font-semibold text-gray-700 mb-1">
           {label}
         </Text>
       ) : null}
@@ -104,15 +104,15 @@ const CustomInput = ({
           paddingHorizontal: 0,
           paddingVertical: 0,
           margin: 0,
-          marginBottom: 0,
+          marginBottom: 0,   
         }}
         errorMessage={error}
         errorStyle={{
           margin: 0,
-          paddingVertical: 1,
+          paddingVertical: 0,
           fontSize: 12,
-          color: "#ef4444",
-          height: 20,
+          color: '#ef4444',
+          height: error ? 20 : 0, 
         }}
         placeholderTextColor="#9ca3af"
         {...rest}

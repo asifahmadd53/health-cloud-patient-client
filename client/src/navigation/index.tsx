@@ -16,7 +16,7 @@ const AppLayout = () => {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="auth" component={AuthLayout} />
       <Stack.Screen name="drawer" component={DrawerLayout} />
-      <Stack.Screen name="tabs" component={TabLayout} />
+      <Stack.Screen name="HomeDrawer" component={TabLayout} />
       <Stack.Screen name="home" component={HomeRoutes} />
       <Stack.Screen name="DrProfileRoutes" component={DrProfileLayout} />
       <Stack.Screen name='AddFamilyLayout' component={FamilyLayout} />

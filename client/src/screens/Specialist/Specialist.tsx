@@ -5,7 +5,6 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icons from '../../utils/libs/constants/Icons';
 import Categories from '../../components/Categories';
 import CustomInput from '../../components/CustomInput';
-import ReactNativeModal from 'react-native-modal';
 import { Dropdown } from 'react-native-element-dropdown';
 import { CheckBox, Switch } from '@rneui/themed';
 import CustomButton from '../../components/CustomButton';
@@ -16,7 +15,7 @@ import Header from '../../components/Header';
 
 const { height } = Dimensions.get('window');
 
-const Specialist = () => {
+const Specialists = () => {
     const navigation = useNavigation();
     const DATA = [3, 2, 3, 2, 23, 2, 5, 2];
     const [search, setSearch] = useState('');
@@ -75,36 +74,31 @@ const Specialist = () => {
     return (
         <SafeAreaView className="flex-1 bg-white">
           
-          <Header title='Specialist'/>
+          <Header title='Specialists'/>
 
            <View className='px-4 flex-1'>
-                <View className='mt-7 lg:mt-10 flex-row gap-3 lg:px-8 items-center'>
-                    <View className='flex-1'>
+                <View className="mt-7 lg:mt-10 flex-row items-center gap-2 lg:px-8">
+                    <View className="flex-1">
                         <CustomInput
-                            icon={Icons.search}
+                            icon="search"
                             placeholder="Find a doctor"
                             value={search}
                             onChangeText={setSearch}
                         />
                     </View>
-
-                    {/* Filter Button */}
-                    <View>
-                        <TouchableOpacity
-                            activeOpacity={0.9}
-                            onPress={() => bottomSheetRef.current?.expand()}
-                            className='bg-primary p-3 rounded-md '
-                        >
-                            <Image
-                                className='w-7 h-7 lg:w-10 lg:h-10'
-                                source={Icons.filter}
-                            />
-                        </TouchableOpacity>
-                    </View>
+                    <TouchableOpacity
+                        activeOpacity={0.9}
+                        onPress={() => bottomSheetRef.current?.expand()}
+                        className="bg-primary rounded-md p-3 aspect-square items-center justify-center"
+                    >
+                        <Image
+                            className="w-7 h-7 lg:w-10 lg:h-10"
+                            source={Icons.filter}
+                        />
+                    </TouchableOpacity>
                 </View>
 
-                <ScrollView horizontal showsHorizontalScrollIndicator={false} className='flex-none py-2 lg:px-8'>
-
+                <ScrollView horizontal showsHorizontalScrollIndicator={false} className='flex-none py-2 lg:px-8 mt-4'>
                     <Categories title='All' icon={Icons.doctor} />
                     <Categories title='Cardiologist' icon={Icons.heart} />
                     <Categories title='Neurology' icon={Icons.brain} />
@@ -132,33 +126,62 @@ const Specialist = () => {
                     <BottomSheetView className='px-5' style={{ flex: 1, padding: 16 }}>
                         <Text className="text-xl font-bold text-center mb-6 lg:text-2xl lg:my-5">Select Filters</Text>
                         <Text className="text-base font-semibold mb-2 lg:text-xl">City</Text>
+                       
+
                         <Dropdown
-                            style={{ backgroundColor: '#F0F0F0', borderRadius: 8, padding: isTablet ? 15 : 10, paddingVertical: isTablet ? 22 : 12 }}
+                            containerStyle={{ borderRadius: 8 }}
+                            style={styles.consistentDropdown}
+                            placeholderStyle={styles.consistentPlaceholder}
+                            selectedTextStyle={styles.consistentSelectedText}
+                            inputSearchStyle={styles.consistentInputSearch}
+                            iconStyle={styles.consistentIcon}
+                            itemTextStyle={styles.consistentItemText}
                             data={data}
-                            search
+                            search={false}
                             maxHeight={300}
                             labelField="label"
-                            valueField="value"
+                            valueField="label"
                             placeholder="Select City"
                             searchPlaceholder="Search..."
-                            value={selectedCity}
+                            value={selectedSpeciality}
                             onChange={item => setSelectedCity(item.value)}
+                            renderItem={(item) => (
+                                <View style={styles.dropdownItemContainer}>
+                                    <Text style={styles.dropdownItemText} numberOfLines={2}>
+                                        {item.label}
+                                    </Text>
+                                </View>
+                            )}
                         />
 
                         {/* Speciality Dropdown */}
                         <Text className="text-base font-semibold mt-4 mb-2 lg:text-xl">Speciality</Text>
+                      
                         <Dropdown
-                            style={{ backgroundColor: '#F0F0F0', borderRadius: 8, padding: isTablet ? 15 : 10, paddingVertical: isTablet ? 22 : 12 }}
+                                      containerStyle={{ borderRadius: 8 }}
+                                      style={styles.consistentDropdown}
+                                      placeholderStyle={styles.consistentPlaceholder}
+                                      selectedTextStyle={styles.consistentSelectedText}
+                                      inputSearchStyle={styles.consistentInputSearch}
+                                      iconStyle={styles.consistentIcon}
+                                      itemTextStyle={styles.consistentItemText}
                             data={Speciality}
-                            search
-                            maxHeight={300}
+                                      search={false}
+                                      maxHeight={300}
                             labelField="label"
                             valueField="value"
                             placeholder="Select Speciality"
                             searchPlaceholder="Search..."
                             value={selectedSpeciality}
                             onChange={item => setSelectedSpeciality(item.value)}
-                        />
+                                      renderItem={(item) => (
+                                        <View style={styles.dropdownItemContainer}>
+                                          <Text style={styles.dropdownItemText} numberOfLines={2}>
+                                            {item.label}
+                                          </Text>
+                                        </View>
+                                      )}
+                                    />
 
                         {/* Popularity Switch */}
                         <View className="flex-row justify-between items-center mt-4">
@@ -253,31 +276,49 @@ const Specialist = () => {
     );
 };
 
-export default Specialist;
+export default Specialists;
 
 const styles = StyleSheet.create({
-    dropdown: {
-        height: 55,
+    consistentDropdown: {
+        height: 48,
+        backgroundColor: '#fff',
+        borderRadius: 8,
+        paddingHorizontal: 12,
         borderWidth: 1,
-        paddingHorizontal: 15,
-        borderRadius: 12,
-        borderColor: 'lightgray',
+        borderColor: '#d1d5db',
     },
-    icon: {
-        marginRight: 5,
-    },
-    placeholderStyle: {
+    consistentPlaceholder: {
         fontSize: 16,
+        color: '#9ca3af',
     },
-    selectedTextStyle: {
+    consistentSelectedText: {
         fontSize: 16,
+        color: '#1f2937',
     },
-    iconStyle: {
-        width: 20,
-        height: 20,
-    },
-    inputSearchStyle: {
-        height: 40,
+    consistentInputSearch: {
+        height: 48,
         fontSize: 16,
+        borderRadius: 8,
+        color: 'black',
+    },
+    consistentIcon: {
+        tintColor: '#9ca3af',
+    },
+    consistentItemText: {
+        fontSize: 16,
+        color: 'black',
+    },
+    dropdownItemContainer: {
+        padding: 12,
+        borderBottomWidth: 1,
+        borderBottomColor: '#f3f4f6',
+        minHeight: 48,
+        justifyContent: 'center',
+    },
+    dropdownItemText: {
+        fontSize: 16,
+        color: '#1f2937',
+        flexWrap: 'wrap',
+        lineHeight: 20,
     },
 });

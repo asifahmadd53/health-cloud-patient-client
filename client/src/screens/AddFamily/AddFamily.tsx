@@ -25,7 +25,6 @@ const AddFamily = () => {
     { label: 'Lahore', value: '2' },
     { label: 'Islamabad', value: '3' },
     { label: 'Okada', value: '4' },
-    
   ];
 
   return (

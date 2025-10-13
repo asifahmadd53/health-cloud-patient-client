@@ -39,8 +39,8 @@ const Profile = () => {
                 resizeMode="contain"
                 source={Images.manAvatar}
               />
-              <View className="absolute bottom-1 right-1 w-7 h-7 bg-green-500 rounded-full items-center justify-center border-2 border-white">
-                <Image className="w-4 h-4" source={Icons.tick} />
+              <View className="absolute bottom-1 right-1 w-7 h-7 bg-secondary rounded-full items-center justify-center border-2 border-white">
+                <Image className="w-4 h-4" tintColor={"white"} source={Icons.tick} />
               </View>
             </View>
             <Text className="text-xl font-bold text-gray-900 mt-3">Muhammad Asif</Text>
