@@ -6,8 +6,8 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { useNavigation } from '@react-navigation/native';
 import CustomHeader from '../../components/CustomHeader';
-import Images from '../../utils/libs/constants/Images';
-import Icons from '../../utils/libs/constants/Icons';
+import Images from '../../utils/constants/Images';
+import Icons from '../../utils/constants/Icons';
 import CustomInput from '../../components/CustomInput';
 import Categories from '../../components/Categories';
 import DoctorCard from '../../components/DoctorCard';
@@ -59,7 +59,7 @@ const DashBoard = () => {
     };
   });
 
- 
+
   return (
     <SafeAreaView className="flex-1 bg-white px-5 lg:px-12">
       <View className="flex-row items-center justify-between w-full mt-4">
@@ -114,17 +114,17 @@ const DashBoard = () => {
                 origin="50, 50"
               />
             </Svg>
-           
+
             <View className="absolute inset-1 items-center justify-center">
               <Text className="font-bold text-sm">M</Text>
             </View>
           </View>
 
           {/* Labels below the circle */}
-         <View className='ml-3'>
+          <View className='ml-3'>
             <Text className="font-semibold text-gray-800">Hello Asif</Text>
             <Text className="text-sm text-gray-500">20% completed</Text>
-         </View>
+          </View>
         </View>
 
         {/* Right Section: Icon */}
@@ -135,7 +135,7 @@ const DashBoard = () => {
       </View>
       <View className="mt-1 mb-2">
         <TouchableOpacity
-        activeOpacity={.90}
+          activeOpacity={.90}
           onPress={() => bottomSheetRef.current?.expand()}
           className="flex-row items-center px-4 py-3 bg-white rounded-xl border border-gray-300"
         >
@@ -245,7 +245,7 @@ const DashBoard = () => {
           <Banner />
         </View>
 
-        
+
 
         <View className="mt-4 w-full flex-row gap-2 items-center">
           <View style={{ flex: 1 }} className="w-full">
@@ -257,7 +257,7 @@ const DashBoard = () => {
               videoUri="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
             />
           </View>
-          
+
         </View>
 
       </ScrollView>
@@ -294,7 +294,7 @@ const DashBoard = () => {
           </View>
         </BottomSheetView>
       </BottomSheet>
-      
+
 
 
     </SafeAreaView>

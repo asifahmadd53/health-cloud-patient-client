@@ -1,7 +1,7 @@
 import { View, Text, Image } from 'react-native';
 import React from 'react';
-import Icons from '../utils/libs/constants/Icons';
-import Images from '../utils/libs/constants/Images';
+import Icons from '../utils/constants/Icons';
+import Images from '../utils/constants/Images';
 
 const DoctorExperienceCard = () => {
     const experienceData = [

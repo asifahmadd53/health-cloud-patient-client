@@ -11,11 +11,11 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import Icons from "../../utils/libs/constants/Icons";
+import Icons from "../../utils/constants/Icons";
 import CustomPasswordInput from "../../components/CustomPasswordInput";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
-import Images from "../../utils/libs/constants/Images";
+import Images from "../../utils/constants/Images";
 
 
 
@@ -46,7 +46,7 @@ const SignIn = () => {
             <Text className="text-base text-gray-600 mt-1 lg:text-2xl">Give creadential to sign in your account</Text>
             <Text className="text-base md:text-lg font-semibold tracking-wider lg:text-2xl">Phone #</Text>
             <CustomInput icon="phone" placeholder={'Enter your Phone #'} value={pmdc} onChangeText={setpmcd} />
-            
+
             <Text className="text-base md:text-lg font-semibold tracking-wider lg:text-2xl">OTP Code</Text>
             <CustomPasswordInput placeholder={'Enter OTP '} value={password} onChange={setPassword} />
             <View className="items-end">

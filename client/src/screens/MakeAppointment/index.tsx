@@ -12,11 +12,11 @@ import {
 import moment from 'moment';
 import Calendar from 'react-native-calendars/src/calendar';
 import Header from '../../components/Header';
-import Icons from '../../utils/libs/constants/Icons';
+import Icons from '../../utils/constants/Icons';
 import CustomButton from '../../components/CustomButton';
 import DoctorExperienceCard from '../../components/DoctorExperienceCard';
 
-const datesList = [     
+const datesList = [
     moment().add(0, 'day').format('YYYY-MM-DD'),
     moment().add(1, 'day').format('YYYY-MM-DD'),
     moment().add(2, 'day').format('YYYY-MM-DD'),
@@ -45,7 +45,7 @@ const MakeAppointment = () => {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{ paddingBottom: 40 }}
                 >
-                    <DoctorExperienceCard/>
+                    <DoctorExperienceCard />
 
                     <View>
                         <View className="flex-row justify-between items-center mt-4">

@@ -6,11 +6,11 @@ import {
   ScrollView,
   Dimensions,
 } from 'react-native';
-import React, {useState} from 'react';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import Icons from '../../utils/libs/constants/Icons';
-import Images from '../../utils/libs/constants/Images';
+import React, { useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Icons from '../../utils/constants/Icons';
+import Images from '../../utils/constants/Images';
 import CustomButton from '../../components/CustomButton';
 import Header from '../../components/Header';
 import DoctorExperienceCard from '../../components/DoctorExperienceCard';
@@ -34,13 +34,13 @@ const DrProfile = () => {
 
   return (
     <SafeAreaView className=" bg-white flex-1 lg:px-10">
-      <Header title='Doctor Profile'/>
+      <Header title='Doctor Profile' />
       <ScrollView
         className="px-5 pt-6"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 30 }}>
-       
-        <DoctorExperienceCard/>
+
+        <DoctorExperienceCard />
 
         <View className="py-4">
           <Text className="text-lg font-semibold text-gray-900 mb-4 lg:text-xl">
@@ -70,13 +70,13 @@ const DrProfile = () => {
               </View>
             ))}
           </View>
-         
+
 
         </View>
       </ScrollView>
 
       <View className="my-2 rounded-lg py-2 flex items-center z-50">
-        <CustomButton label="Make Appointment" link='MakeAppointment'/>
+        <CustomButton label="Make Appointment" link='MakeAppointment' />
       </View>
     </SafeAreaView>
   );

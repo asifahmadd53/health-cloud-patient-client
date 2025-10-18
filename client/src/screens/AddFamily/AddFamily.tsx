@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { RadioButton } from 'react-native-paper';
 import { Dropdown } from 'react-native-element-dropdown'
-import Icons from '../../utils/libs/constants/Icons';
+import Icons from '../../utils/constants/Icons';
 import CustomSimpleInput from '../../components/CustomSimpleInput';
 import CustomButton from '../../components/CustomButton';
 import CustomInput from '../../components/CustomInput';
@@ -43,33 +43,33 @@ const AddFamily = () => {
       </View>
 
       <View className='mt-5'>
-        <CustomInput label={'Name'} placeholder={'Enter Full Name'} value={name} onChangeText={setName}/>
-        <CustomInput label={'Your Relationship'} placeholder={'Enter Full Name'} onChangeText={setRelation} value={relation}/>
-        <CustomInput label={'Age'} placeholder={'Enter Full Name'} onChangeText={setAge} value={age}/>
+        <CustomInput label={'Name'} placeholder={'Enter Full Name'} value={name} onChangeText={setName} />
+        <CustomInput label={'Your Relationship'} placeholder={'Enter Full Name'} onChangeText={setRelation} value={relation} />
+        <CustomInput label={'Age'} placeholder={'Enter Full Name'} onChangeText={setAge} value={age} />
         <View className=''>
-            <Text className='font-semibold'>Gender</Text>
-            <View className='flex-row gap-8'>
-              <View className='flex-row-reverse items-center mt-2'>
-                <Text  onPress={() => setGender('male')}>Male</Text>
-                <RadioButton
-                  color='#2895cb'
-                  value="first"
-                  status={gender === 'male' ? 'checked' : 'unchecked'}
-                  onPress={() => setGender('male')}
-                  />
-                  </View>
-                  <View className='flex-row-reverse items-center'>
-                  <Text  onPress={() => setGender('female')}>Female</Text>
-                <RadioButton
-                 color='#2895cb'
-                  value="second"
-                  status={gender === 'female' ? 'checked' : 'unchecked'}
-                  onPress={() => setGender('female')}
-                />
-                  </View>
+          <Text className='font-semibold'>Gender</Text>
+          <View className='flex-row gap-8'>
+            <View className='flex-row-reverse items-center mt-2'>
+              <Text onPress={() => setGender('male')}>Male</Text>
+              <RadioButton
+                color='#2895cb'
+                value="first"
+                status={gender === 'male' ? 'checked' : 'unchecked'}
+                onPress={() => setGender('male')}
+              />
             </View>
-            <Text className='font-semibold text-base my-3'>Gender</Text>
-            <Dropdown
+            <View className='flex-row-reverse items-center'>
+              <Text onPress={() => setGender('female')}>Female</Text>
+              <RadioButton
+                color='#2895cb'
+                value="second"
+                status={gender === 'female' ? 'checked' : 'unchecked'}
+                onPress={() => setGender('female')}
+              />
+            </View>
+          </View>
+          <Text className='font-semibold text-base my-3'>Gender</Text>
+          <Dropdown
             containerStyle={{ borderRadius: 8 }}
             style={styles.consistentDropdown}
             placeholderStyle={styles.consistentPlaceholder}
@@ -77,17 +77,17 @@ const AddFamily = () => {
             inputSearchStyle={styles.consistentInputSearch}
             iconStyle={styles.consistentIcon}
             itemTextStyle={styles.consistentItemText}
-        data={data}
+            data={data}
             search={false}
             maxHeight={300}
             labelField="value"
             valueField="value"
             placeholder="Select"
-        searchPlaceholder="Search..."
-        value={value}
-        onChange={item => {
-          setValue(item.value);
-        }}
+            searchPlaceholder="Search..."
+            value={value}
+            onChange={item => {
+              setValue(item.value);
+            }}
             renderItem={item => (
               <View style={styles.dropdownItemContainer}>
                 <Text
@@ -97,14 +97,14 @@ const AddFamily = () => {
                 </Text>
               </View>
             )}
-        
-      />
-      <View className='my-4'>
-      <CustomInput label={'Any prediagnosed Disease'} placeholder={'Dibetic, Hypertension, etc'} value={disease} onChangeText={setDisease}/>
-      </View>
+
+          />
+          <View className='my-4'>
+            <CustomInput label={'Any prediagnosed Disease'} placeholder={'Dibetic, Hypertension, etc'} value={disease} onChangeText={setDisease} />
+          </View>
         </View>
       </View>
-      <CustomButton label='Add Patient'/>
+      <CustomButton label='Add Patient' />
     </SafeAreaView>
   )
 }

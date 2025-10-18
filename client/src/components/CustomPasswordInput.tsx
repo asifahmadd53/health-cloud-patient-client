@@ -1,7 +1,7 @@
 import { Image, StyleSheet, View } from 'react-native';
 import React, { useState } from 'react';
 import { TextInput } from 'react-native-paper';
-import Icons from '../utils/libs/constants/Icons';
+import Icons from '../utils/constants/Icons';
 
 const CustomPasswordInput = ({ placeholder, value, onChange }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,9 +17,9 @@ const CustomPasswordInput = ({ placeholder, value, onChange }) => {
       secureTextEntry={!showPassword}
       left={<TextInput.Icon icon={() => <Image source={Icons.locker} style={{ width: 30, height: 30 }} />} />}
       right={
-        <TextInput.Icon 
-          icon={showPassword ? 'eye' : 'eye-off'} 
-          onPress={() => setShowPassword(!showPassword)} 
+        <TextInput.Icon
+          icon={showPassword ? 'eye' : 'eye-off'}
+          onPress={() => setShowPassword(!showPassword)}
         />
       }
       style={{ backgroundColor: 'white' }}

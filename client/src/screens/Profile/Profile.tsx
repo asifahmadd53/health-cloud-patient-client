@@ -11,8 +11,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import Icons from '../../utils/libs/constants/Icons';
-import Images from '../../utils/libs/constants/Images';
+import Icons from '../../utils/constants/Icons';
+import Images from '../../utils/constants/Images';
 import Header from '../../components/Header';
 
 const Profile = () => {

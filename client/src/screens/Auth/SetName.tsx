@@ -12,18 +12,17 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Images from '../../utils/constants/Images';
 import CustomButton from '../../components/CustomButton';
-import PhoneInput from '@linhnguyen96114/react-native-phone-input';
 import { Controller, useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { authSchema } from '../../validators/authValidators';
 import { z } from 'zod';
-import { patientAuth } from '../../services/authServices';
 import { useNavigation } from '@react-navigation/native';
+import CustomInput from '../../components/CustomInput';
+import { profileSchema } from '../../validators/profileValidator';
+import { createPatientProfile } from '../../services/patientServices';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-type FormData = z.infer<typeof authSchema>;
+type FormData = z.infer<typeof profileSchema>;
 
-const PatientAuth: React.FC = () => {
+const SetName: React.FC = () => {
   const navigation = useNavigation<any>();
   const [submitting, setSubmitting] = useState(false);
 
@@ -32,38 +31,28 @@ const PatientAuth: React.FC = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>({
-    defaultValues: { phone: '' },
-    resolver: zodResolver(authSchema),
+    defaultValues: { name: '' },
   });
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async ({ name }: FormData) => {
     setSubmitting(true);
     try {
-      const clean = data.phone.replace(/^0+/, '');
-      const patientNumber = `+92${clean}`;
-
-      const res = await patientAuth({ patientNumber });
-
-      if (res?.token) {
-        await AsyncStorage.setItem('authToken', res.token);
-      } else {
-        console.warn('No token received from backend');
-      }
-
-      navigation.replace('SetName');
-    } catch (e: any) {
-      console.error('Patient auth error:', e);
-
-      const message =
-        e?.response?.data?.message ||
-        e?.message ||
-        'Something went wrong. Please try again.';
-
-      Alert.alert('Error', String(message));
+      await createPatientProfile({ name });
+      navigation.navigate('drawer');
+    } catch (err: any) {
+      Alert.alert(
+        'Error',
+        err?.response?.data?.message || 'Failed to create profile'
+      );
     } finally {
       setSubmitting(false);
     }
   };
+
+
+
+
+
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -86,72 +75,44 @@ const PatientAuth: React.FC = () => {
                 resizeMode="contain"
               />
             </View>
-            <Text className="text-2xl font-bold mt-6">Sign Up or Log In</Text>
+            <Text className="text-2xl font-bold mt-6">Set Up Your Profile</Text>
             <Text className="text-sm text-gray-500 mt-3">
-              Enter your phone number to continue. No verification code needed for now.
+              Please enter your full name to continue. You can update it later in your profile settings.
             </Text>
+
           </View>
 
-          {/* Phone Input */}
           <View className="pt-5 w-full gap-2">
-            <Text className="text-base font-semibold tracking-wider">Phone #</Text>
             <Controller
-              name="phone"
               control={control}
-              render={({ field: { onChange, value } }) => (
-                <View
-                  className={`border rounded-lg ${errors.phone ? 'border-red-500' : 'border-gray-300'
-                    }`}
-                >
-                  <PhoneInput
-                    defaultCode="PK"
-                    defaultValue={value}
-                    onChangeFormattedText={(text) =>
-                      onChange(text.replace(/\D/g, '').slice(-10))
-                    }
-                    disableArrowIcon
-                    withShadow={false}
-                    autoFocus
-                    maxLength={10}
-                    keyboardType="phone-pad"
-                    containerStyle={{
-                      width: '100%',
-                      borderRadius: 8,
-                      backgroundColor: 'transparent',
-                    }}
-                    flagButtonStyle={{
-                      width: 60,
-                      justifyContent: 'center',
-                      marginRight: -2,
-                    }}
-                    codeTextStyle={{
-                      marginLeft: -8,
-                      marginRight: 6,
-                      paddingRight: 0,
-                    }}
-                    textContainerStyle={{
-                      paddingVertical: 0,
-                      paddingHorizontal: 0,
-                      backgroundColor: 'transparent',
-                    }}
-                  />
-                </View>
+              name="name"
+              rules={{ required: "Name is required" }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <CustomInput
+                  label="Enter your name"
+                  value={value}
+                  onChangeText={onChange}
+                  onBlur={onBlur}
+                  placeholder="John Doe"
+                />
               )}
             />
-            {errors.phone && (
+            {errors.name && (
               <Text className="text-red-500 text-xs mt-1">
-                {errors.phone.message}
+                {errors.name.message}
               </Text>
             )}
+
           </View>
 
           {/* CTA */}
           <View className="my-8">
 
             <CustomButton
+              onPress={handleSubmit(onSubmit)}
               loading={submitting}
               label="Continue"
-              onPress={handleSubmit(onSubmit)}
+            // onPress={handleSubmit(onSubmit)}
             />
 
           </View>
@@ -182,4 +143,4 @@ const PatientAuth: React.FC = () => {
   );
 };
 
-export default PatientAuth;
+export default SetName;

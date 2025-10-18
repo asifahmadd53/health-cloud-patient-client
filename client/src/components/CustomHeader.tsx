@@ -1,6 +1,6 @@
 import { Image, Pressable, View } from 'react-native';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
-import Icons from '../utils/libs/constants/Icons';
+import Icons from '../utils/constants/Icons';
 
 const CustomHeader = () => {
   const navigation = useNavigation();

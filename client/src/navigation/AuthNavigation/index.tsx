@@ -7,6 +7,7 @@ import NewPassword from '../../screens/ForgetPassword/NewPassword';
 import SignUpComplete from '../../screens/Auth/SignUpCompleted';
 import OTPVerification from '../../screens/Auth/OTPVerification';
 import PatientAuth from '../../screens/Auth/PatientAuth';
+import SetName from '../../screens/Auth/SetName';
 
 
 const AuthLayout = () => {
@@ -21,6 +22,7 @@ const AuthLayout = () => {
     <Stack.Screen name="otp"component={OTP} />
     <Stack.Screen name="new-password"component={NewPassword} />
     <Stack.Screen name="OTPVerification"component={OTPVerification} />
+    <Stack.Screen name="SetName"component={SetName} />
   </Stack.Navigator>
   );
 };

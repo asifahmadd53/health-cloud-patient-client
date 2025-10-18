@@ -2,7 +2,7 @@ import { Image, Text, View } from "react-native"
 import { Input } from "@rneui/themed"
 import type { TextInputProps } from "react-native-paper"
 import { useState } from "react"
-import Icons from "../utils/libs/constants/Icons"
+import Icons from "../utils/constants/Icons"
 
 export interface CustomInputProps
   extends Omit<TextInputProps, "theme" | "left" | "right" | "onChangeText"> {
@@ -60,7 +60,7 @@ const CustomInput = ({
       ) : null}
 
       <Input
-       
+
         placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
@@ -104,7 +104,7 @@ const CustomInput = ({
           paddingHorizontal: 0,
           paddingVertical: 0,
           margin: 0,
-          marginBottom: 0,   
+          marginBottom: 0,
         }}
         errorMessage={error}
         errorStyle={{
@@ -112,7 +112,7 @@ const CustomInput = ({
           paddingVertical: 0,
           fontSize: 12,
           color: '#ef4444',
-          height: error ? 20 : 0, 
+          height: error ? 20 : 0,
         }}
         placeholderTextColor="#9ca3af"
         {...rest}

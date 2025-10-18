@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { ProgressBar } from 'react-native-paper';
 import CustomHeader from '../../components/CustomHeader';
-import Icons from '../../utils/libs/constants/Icons';
+import Icons from '../../utils/constants/Icons';
 
 const Documents = () => {
     const [documents, setDocuments] = useState(false)
@@ -59,10 +59,10 @@ const Documents = () => {
             </View>
 
             <FlatList
-            showsVerticalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
                 data={DATA}
                 renderItem={() => <View className="border border-slate-300 rounded-xl p-4 flex-row items-center gap-2 mt-5 shadow-lg bg-white">
-                    <Image className="h-16 w-16" source={Icons.list}/>
+                    <Image className="h-16 w-16" source={Icons.list} />
                     <View className="flex-1">
                         <Text className="text-base font-semibold">Image Name:</Text>
                         <View className="flex-row items-center gap-2">

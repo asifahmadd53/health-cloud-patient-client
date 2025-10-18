@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View, TouchableOpacity, KeyboardAvoidingView, Platform, Alert, ScrollView, TextInput, Animated } from "react-native"
 import { useRef, useState, useEffect } from "react"
 import { SafeAreaView } from "react-native-safe-area-context"
-import { useRoute } from "@react-navigation/native"
+import { useNavigation, useRoute } from "@react-navigation/native"
 import CustomButton from "../../components/CustomButton"
 import Header from "../../components/Header"
+import { verifyOtp } from "../../services/authServices"
 
 const OTP = () => {
-  const route = useRoute<any>()
-  const email = route.params?.email || "your email"
+
+  const route = useRoute<any>();
+  const navigation = useNavigation<any>();
+  const phone = route.params?.phone ?? '';
 
   const inputRefs = [
     useRef<TextInput>(null),
@@ -18,6 +21,7 @@ const OTP = () => {
 
   const [otp, setOtp] = useState(["", "", "", ""])
   const [activeIndex, setActiveIndex] = useState(0)
+  const [loading, setLoading] = useState(false);
 
   const scales = otp.map(() => useRef(new Animated.Value(1)).current)
 
@@ -58,6 +62,20 @@ const OTP = () => {
     }
   }
 
+  // const handleVerify = async () => {
+  //   const code = otp.join('');
+  //   if (code.length !== 4) return Alert.alert('Error', 'Enter 4-digit code');
+  //   setLoading(true);
+  //   try {
+  //     await verifyOtp({ phone, otp: code });
+  //     navigation.reset({ index: 0, routes: [{ name: 'drawer' }] });
+  //   } catch (e: any) {
+  //     Alert.alert('Verification failed', e.message || 'Invalid OTP');
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   return (
     <SafeAreaView className="flex-1 bg-white">
       <Header title="OTP Verification" />
@@ -74,7 +92,7 @@ const OTP = () => {
           <View className="mb-8 mt-6">
             <Text className="text-2xl font-bold text-gray-800">Verification Code</Text>
             <Text className="text-base pt-2 text-gray-600">
-              We've sent a 4-digit code to {email}. Enter the code below to verify.
+              We've sent a 4-digit code to {phone}. Enter the code below to verify.
             </Text>
           </View>
 
@@ -110,10 +128,16 @@ const OTP = () => {
               </Animated.View>
             ))}
           </View>
-          <CustomButton
+          {/* <CustomButton
             link='drawer'
             label="Verify & Continue"
             // disabled={otp.join("").length !== 4}
+          /> */}
+          <CustomButton
+            label="Verify & Continue"
+            // onPress={handleVerify}
+            link="drawer"
+            // disabled={loading || otp.join('').length !== 4}
           />
         </ScrollView>
       </KeyboardAvoidingView>

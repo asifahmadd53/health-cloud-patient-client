@@ -5,6 +5,8 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We use your location to auto-fill your current city.</string>
 	<string>client</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

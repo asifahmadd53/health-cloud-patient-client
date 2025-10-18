@@ -2,8 +2,8 @@ import { FlatList, Image, Text, TouchableOpacity, View, StyleSheet } from 'react
 import React, { useCallback, useRef, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import Images from '../../utils/libs/constants/Images';
-import Icons from '../../utils/libs/constants/Icons';
+import Images from '../../utils/constants/Images';
+import Icons from '../../utils/constants/Icons';
 import FamilyCard from '../../components/FamilyCard';
 import CustomSecondaryButton from '../../components/CustomSecondaryButton';
 import Header from '../../components/Header';

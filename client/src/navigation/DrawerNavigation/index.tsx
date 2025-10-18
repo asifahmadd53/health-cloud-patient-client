@@ -4,7 +4,7 @@ import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawe
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons"
 import MaterialIcons from "react-native-vector-icons/MaterialIcons"
 import FeatherIcons from "react-native-vector-icons/Feather"
-import Images from "../../utils/libs/constants/Images"
+import Images from "../../utils/constants/Images"
 import TabLayout from "../TabNavigation"
 import Privacy from "../../screens/Drawer/privacy"
 import Help from "../../screens/Drawer/help"
@@ -56,7 +56,7 @@ const DrawerLayout = () => {
       }}
       drawerContent={(props) => <CustomDrawerContent {...props} />}
     >
-      <Drawer.Screen name="Home" component={TabLayout} options={{ drawerItemStyle: { display: "none" } }} />
+      <Drawer.Screen name="HomeScreen" component={TabLayout} options={{ drawerItemStyle: { display: "none" } }} />
       <Drawer.Screen
         name="profile"
         component={Profile}
@@ -134,7 +134,7 @@ const DrawerLayout = () => {
           ),
         }}
       />
-      
+
 
     </Drawer.Navigator>
   )

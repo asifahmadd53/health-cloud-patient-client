@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 import * as Progress from 'react-native-progress';
-import Icons from '../../utils/libs/constants/Icons';
+import Icons from '../../utils/constants/Icons';
 import CustomSecondaryButton from '../../components/CustomSecondaryButton';
 
 interface Item {
@@ -52,7 +52,7 @@ export default function AddReports() {
                     <Text className="text-secondary underline">See All</Text>
                 </TouchableOpacity>
             </View>
-           
+
             {items.map((it) => (
                 <View key={it.id} className="bg-white mt-4 px-3 py-4 rounded-lg shadow-md mx-2">
                     <Text className="font-semibold">{it.name}</Text>

@@ -2,7 +2,7 @@ import { Image, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
-import Icons from '../../utils/libs/constants/Icons'
+import Icons from '../../utils/constants/Icons'
 import CustomInput from '../../components/CustomInput'
 import CustomButton from '../../components/CustomButton'
 
@@ -30,9 +30,9 @@ const ForgetPassword = () => {
 
       {/* Form Container */}
       <View className="flex-1 lg:w-4/5 lg:mx-auto">
-      <Text className="text-base pt-2 text-gray-600  lg:text-lg mt-4 lg:mt-10">
-        Please enter your phone # to request a password reset
-      </Text>
+        <Text className="text-base pt-2 text-gray-600  lg:text-lg mt-4 lg:mt-10">
+          Please enter your phone # to request a password reset
+        </Text>
         <View className="lg:mt-2">
           <Text className="text-base font-semibold my-3 lg:text-xl lg:mb-5">Phone #</Text>
           <CustomInput

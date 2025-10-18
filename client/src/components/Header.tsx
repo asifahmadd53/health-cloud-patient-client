@@ -1,7 +1,7 @@
 import { Image, Text, TouchableOpacity, View } from "react-native"
 import React from "react"
 import { useNavigation } from "@react-navigation/native"
-import Icons from "../utils/libs/constants/Icons"
+import Icons from "../utils/constants/Icons"
 
 interface HeaderProps {
     title: string
