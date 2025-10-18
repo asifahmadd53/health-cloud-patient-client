@@ -42,7 +42,9 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                     <Text className="text-lg font-extrabold text-gray-900 lg:text-xl">
                         {name || "Unknown Doctor"}
                     </Text>
-                    <Text className="text-sm font-medium text-gray-600 lg:text-lg">
+                    <Text 
+                    ellipsizeMode="tail"
+                    numberOfLines={1} className="text-sm font-medium text-gray-600 lg:text-lg">
                         {speciality || "General Practitioner"}
                     </Text>
 

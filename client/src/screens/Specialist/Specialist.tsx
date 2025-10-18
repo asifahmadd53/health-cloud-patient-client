@@ -37,7 +37,7 @@ const Specialists = () => {
   const [sortAZ, setSortAZ] = useState(false);
   const [sortZA, setSortZA] = useState(false);
   const [isPopular, setIsPopular] = useState(false);
-
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const bottomSheetRef = useRef<BottomSheet>(null);
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
@@ -84,22 +84,27 @@ const Specialists = () => {
     fetchDoctors();
   }, []);
 
-  const filteredDoctors = doctors.filter(doc => {
-    const doctorName = doc?.doctor?.name?.toLowerCase() || '';
-    const speciality = doc?.specialty?.join(', ')?.toLowerCase() || '';
-    const city = doc?.city?.toLowerCase() || '';
+    const filteredDoctors = doctors.filter(doc => {
+        const doctorName = doc?.doctor?.name?.toLowerCase() || '';
+        const speciality = doc?.specialty?.join(', ')?.toLowerCase() || '';
+        const city = doc?.city?.toLowerCase() || '';
 
-    const matchesName = doctorName.includes(search.toLowerCase());
-    const matchesCity = selectedCity
-      ? city === selectedCity.toLowerCase()
-      : true;
-    const matchesSpeciality = selectedSpeciality
-      ? speciality.includes(selectedSpeciality.toLowerCase())
-      : true;
+        const matchesName = doctorName.includes(search.toLowerCase());
+        const matchesCity = selectedCity
+            ? city === selectedCity.toLowerCase()
+            : true;
+        const matchesSpeciality = selectedSpeciality
+            ? speciality.includes(selectedSpeciality.toLowerCase())
+            : true;
+        const matchesCategory =
+            selectedCategory === 'All'
+                ? true
+                : speciality.includes(selectedCategory.toLowerCase());
 
-    return matchesName && matchesCity && matchesSpeciality;
-  });
+        return matchesName && matchesCity && matchesSpeciality && matchesCategory;
+    });
 
+    
   if (sortAZ)
     filteredDoctors.sort((a, b) => a.doctor.name.localeCompare(b.doctor.name));
   if (sortZA)
@@ -122,12 +127,12 @@ const Specialists = () => {
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => bottomSheetRef.current?.expand()}
-            className="bg-primary rounded-md p-3 aspect-square items-center justify-center">
+            className="bg-secondary rounded-md p-3 aspect-square items-center justify-center">
             <Image className="w-7 h-7 lg:w-10 lg:h-10" source={Icons.filter} />
           </TouchableOpacity>
         </View>
 
-        <ScrollView
+        {/* <ScrollView
           horizontal
           showsHorizontalScrollIndicator={false}
           className="flex-none py-2 lg:px-8 mt-4">
@@ -136,7 +141,33 @@ const Specialists = () => {
           <Categories title="Neurology" icon={Icons.brain} />
           <Categories title="Eye Specialist" icon={Icons.eye} />
           <Categories title="Dentist" icon={Icons.tooth} />
-        </ScrollView>
+        </ScrollView> */}
+
+              <ScrollView
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  className="flex-none py-2 lg:px-8 mt-4"
+              >
+                  {[
+                      { title: 'All', icon: Icons.doctor },
+                      { title: 'Cardiologist', icon: Icons.heart },
+                      { title: 'Neurology', icon: Icons.brain },
+                      { title: 'Eye Specialist', icon: Icons.eye },
+                      { title: 'Dentist', icon: Icons.tooth },
+                  ].map(category => (
+                      <TouchableOpacity
+                          key={category.title}
+                          activeOpacity={0.8}
+                          onPress={() => setSelectedCategory(category.title)}
+                      >
+                          <Categories
+                              title={category.title}
+                              icon={category.icon}
+                              active={selectedCategory === category.title}
+                          />
+                      </TouchableOpacity>
+                  ))}
+              </ScrollView>
 
         {loading ? (
           <View className="flex-1 justify-center items-center">
