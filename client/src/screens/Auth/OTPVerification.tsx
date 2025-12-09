@@ -62,19 +62,20 @@ const OTP = () => {
     }
   }
 
-  // const handleVerify = async () => {
-  //   const code = otp.join('');
-  //   if (code.length !== 4) return Alert.alert('Error', 'Enter 4-digit code');
-  //   setLoading(true);
-  //   try {
-  //     await verifyOtp({ phone, otp: code });
-  //     navigation.reset({ index: 0, routes: [{ name: 'drawer' }] });
-  //   } catch (e: any) {
-  //     Alert.alert('Verification failed', e.message || 'Invalid OTP');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
+  const handleVerify = async () => {
+    const code = otp.join('');
+    if (code.length !== 4) return Alert.alert('Error', 'Enter 4-digit code');
+    setLoading(true);
+    try {
+      await verifyOtp({ patientNumber: phone, otp: code }); 
+      navigation.reset({ index: 0, routes: [{ name: 'SetName' }] });
+    } catch (e: any) {
+      Alert.alert('Verification failed', e.message || 'Invalid OTP');
+    } finally {
+      setLoading(false);
+    }
+  };
+
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -135,9 +136,9 @@ const OTP = () => {
           /> */}
           <CustomButton
             label="Verify & Continue"
-            // onPress={handleVerify}
-            link="drawer"
-            // disabled={loading || otp.join('').length !== 4}
+            onPress={handleVerify}
+            // link="drawer"
+            disabled={loading || otp.join('').length !== 4}
           />
         </ScrollView>
       </KeyboardAvoidingView>

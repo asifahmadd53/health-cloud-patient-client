@@ -106,7 +106,7 @@ const Specialists = () => {
 
     
   if (sortAZ)
-    filteredDoctors.sort((a, b) => a.doctor.name.localeCompare(b.doctor.name));
+    filteredDoctors.sort((a, b) => (a?.doctor?.name || "").localeCompare(b?.doctor?.name || ""));
   if (sortZA)
     filteredDoctors.sort((a, b) => b.doctor.name.localeCompare(a.doctor.name));
 
@@ -127,7 +127,7 @@ const Specialists = () => {
           <TouchableOpacity
             activeOpacity={0.9}
             onPress={() => bottomSheetRef.current?.expand()}
-            className="bg-secondary rounded-md p-3 aspect-square items-center justify-center">
+            className="bg-secondary/80 rounded-md p-3 aspect-square items-center justify-center">
             <Image className="w-7 h-7 lg:w-10 lg:h-10" source={Icons.filter} />
           </TouchableOpacity>
         </View>
@@ -185,12 +185,22 @@ const Specialists = () => {
                 name={item.doctor?.name}
                 speciality={item.specialty?.join(', ') || 'General Practice'}
                 city={item.city || 'Unknown'}
-                fee={50} // temporary placeholder, since your API doesn’t provide fee
+                fee={50}
                 image={item.image}
-                onPress={() =>
-                  navigation.navigate('DoctorDetail', {doctor: item})
-                }
+                onPress={() => {
+                  const doctorProfileId = item?._id;  // CORRECT ID
+
+                  if (doctorProfileId) {
+                    navigation.navigate('DrProfileRoutes', {
+                      screen: 'DrProfile',
+                      params: { id: doctorProfileId },
+                    });
+                  } else {
+                    console.warn('doctorProfile _id missing', item);
+                  }
+                }}
               />
+
             )}
             contentContainerStyle={{paddingBottom: 20}}
           />
@@ -320,7 +330,7 @@ const Specialists = () => {
                   fontWeight: 'bold',
                   color: '#333',
                 }}
-                titleProps={{numberOfLines: 1}} // Explicitly setting props for the title
+                titleProps={{numberOfLines: 1}}
                 containerStyle={{
                   backgroundColor: 'transparent',
                   borderWidth: 0,
@@ -328,7 +338,6 @@ const Specialists = () => {
               />
             </View>
 
-            {/* Name Sorting */}
             <Text className="text-base font-semibold mt-4 mb-2">
               Sort by Name
             </Text>
@@ -345,7 +354,7 @@ const Specialists = () => {
                   fontWeight: 'bold',
                   color: '#333',
                 }}
-                titleProps={{numberOfLines: 1}} // Explicitly setting props for the title
+                titleProps={{numberOfLines: 1}}
                 containerStyle={{
                   backgroundColor: 'transparent',
                   borderWidth: 0,
@@ -363,7 +372,7 @@ const Specialists = () => {
                   fontWeight: 'bold',
                   color: '#333',
                 }}
-                titleProps={{numberOfLines: 1}} // Explicitly setting props for the title
+                titleProps={{numberOfLines: 1}}
                 containerStyle={{
                   backgroundColor: 'transparent',
                   borderWidth: 0,

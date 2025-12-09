@@ -3,24 +3,43 @@ import React from 'react';
 import Icons from '../utils/constants/Icons';
 import Images from '../utils/constants/Images';
 
-const DoctorExperienceCard = () => {
+const DoctorExperienceCard = ({ doctor }: any) => {
+    // Example fallback experience data
     const experienceData = [
-        { id: 1, icon: Icons.promotion, years: 5, label: 'Years of work' },
-        { id: 2, icon: Icons.consultation, years: 7, label: 'Number of patients' },
-        { id: 3, icon: Icons.promotion, years: 3.3, label: 'Something else' },
+        { id: 1, icon: Icons.promotion, years: doctor?.years || 0, label: 'Years of work' },
+        { id: 2, icon: Icons.consultation, years: doctor?.schedule?.weeklySchedule?.[0]?.patientPerHour || 0, label: 'Patients per Hour' },
+        { id: 3, icon: Icons.promotion, years: doctor?.rating || 4.8, label: 'Rating' },
     ];
 
     return (
         <View>
-            <View className="flex-row items-center gap-4 mt-6 rounded-2xl shadow-sm bg-white">
-                <Image className="w-28 lg:w-36 lg:h-36 h-28 rounded-lg" source={Images.d2} />
+            <View className="flex-row items-center gap-4 rounded-2xl shadow-sm bg-white p-3">
+                <Image
+                    className="w-28 lg:w-36 lg:h-36 h-28 rounded-lg"
+                    source={
+                        doctor?.doctor?.profileImage
+                            ? { uri: doctor.doctor.profileImage }
+                            : Images.d2
+                    }
+                />
                 <View className="flex-1">
-                    <Text className="font-bold text-xl text-gray-900 md:text-2xl">Mariyam</Text>
-                    <Text className="text-base text-gray-600 lg:text-lg">
-                        <Text className="text-black font-medium">Surgeon</Text> at DHQ Hospital
+                    <Text className="font-bold text-xl text-gray-900 md:text-2xl">
+                        {doctor?.doctor?.name || 'Unknown Doctor'}
                     </Text>
-                    <Text className="text-base text-gray-700 mt-1 lg:text-lg">Associate Professor</Text>
-                    <Text className="text-sm text-gray-600 mt-1 lg:text-lg">MBBS, FCPS</Text>
+
+                    <Text numberOfLines={2} className="text-base text-gray-600 lg:text-lg">
+                        <Text className="text-black font-medium text-sm">
+                            {doctor?.specialty?.[0] || 'Specialist'}
+                        </Text>
+                    </Text>
+
+                    <Text className="text-base text-gray-700 lg:text-lg">
+                        {doctor?.designation || '—'}
+                    </Text>
+
+                    <Text className="text-sm text-gray-600 lg:text-lg">
+                        {doctor?.certifications || 'MBBS'}
+                    </Text>
                 </View>
             </View>
 
@@ -35,7 +54,6 @@ const DoctorExperienceCard = () => {
                     </View>
                 ))}
             </View>
-
         </View>
     );
 };

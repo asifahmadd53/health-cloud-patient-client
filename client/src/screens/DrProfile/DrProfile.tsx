@@ -1,82 +1,127 @@
 import {
-  Image,
   Text,
-  TouchableOpacity,
   View,
   ScrollView,
-  Dimensions,
+  ActivityIndicator,
 } from 'react-native';
-import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icons from '../../utils/constants/Icons';
-import Images from '../../utils/constants/Images';
 import CustomButton from '../../components/CustomButton';
 import Header from '../../components/Header';
 import DoctorExperienceCard from '../../components/DoctorExperienceCard';
-
-
-
-const workingDays = [
-  { day: 'Monday', slots: ['10:00 – 5:00'] },
-  { day: 'Tuesday', slots: ['10:00 – 5:00'] },
-  { day: 'Wednesday', slots: ['10:00 – 5:00'] },
-  { day: 'Thursday', slots: ['10:00 – 5:00'] },
-  { day: 'Friday', slots: ['10:00 – 5:00'] },
-  { day: 'Saturday', slots: ['04:00 – 05:00'] },
-  { day: 'Sunday', slots: ['Closed'] },
-]
-
-
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { getDoctorById } from '../../services/doctorsServices';
 
 
 const DrProfile = () => {
+  const route = useRoute();
+  const { id }:any = route.params;
+  const [doctor, setDoctor] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const navigation:any = useNavigation()
+  const [schedule, setSchedule] = useState<any>(null);
+  type RootStackParamList = { DrProfile: { id: string } };
+  // const route = useRoute<RouteProp<RootStackParamList, 'DrProfile'>>();
+
+  useEffect(() => {
+    const fetchDoctor = async () => {
+      try {
+        const res = await getDoctorById(id);
+        setDoctor({ ...res.data.doctor, ...res.data.doctor.doctor });
+        setSchedule(res.data.doctor?.schedule?.weeklySchedule || []);
+      } catch (err:any) {
+        console.log("Doctor fetch error:", err.response?.data || err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDoctor();
+  }, [id]);
+  if (!id) {
+    return (
+      <SafeAreaView className="flex-1 justify-center items-center bg-white">
+        <Text className="text-gray-700 text-lg">No doctor selected.</Text>
+      </SafeAreaView>
+    );
+  }
+  
+  
 
   return (
     <SafeAreaView className=" bg-white flex-1 lg:px-10">
-      <Header title='Doctor Profile' />
-      <ScrollView
+      <Header title="Doctor Profile" />
+
+      {loading ? (
+        <ScrollView
+          className="flex-1"
+          contentContainerStyle={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+          showsVerticalScrollIndicator={false}
+        >
+          <ActivityIndicator size="large" color="#2C415C" />
+          <Text className="text-gray-700 mt-3">Loading doctor details...</Text>
+        </ScrollView>
+      ) : (
+        <>
+        <ScrollView
         className="px-5 pt-6"
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 30 }}>
 
-        <DoctorExperienceCard />
+        <DoctorExperienceCard doctor={doctor} />
 
         <View className="py-4">
           <Text className="text-lg font-semibold text-gray-900 mb-4 lg:text-xl">
             About Me
           </Text>
           <Text className="text-gray-700 text-base leading-relaxed lg:text-lg">
-            Dr. Muhammad Ali is a skilled **Surgeon** at **DHQ Hospital** with
-            **5+ years of experience**. Specializing in **general and
-            laparoscopic surgeries**, he is also an **Associate Professor**
-            dedicated to medical innovation and patient care.
+            {doctor?.professionalBio ||
+              'No description available for this doctor at the moment.'}
           </Text>
 
           <View className="py-4">
-            <Text className="text-lg font-semibold text-gray-900 mb-4 lg:text-xl">Working Slots</Text>
+            <Text className="text-lg font-semibold text-gray-900 mb-4 lg:text-xl">
+              Working Slots
+            </Text>
             <View className="border-b border-gray-200 mb-3" />
 
-            {workingDays.map(({ day, slots }) => (
-              <View key={day} className="flex-row justify-between items-center py-2">
-                <Text className="text-gray-800 font-medium w-24">{day}</Text>
-                <View className="flex-1 flex-row flex-wrap gap-x-3 gap-y-1 justify-end">
-                  {slots.map((s) => (
-                    <Text key={s} className="text-gray-700 bg-gray-100 px-3 py-1 rounded-full text-sm">
-                      {s}
-                    </Text>
-                  ))}
-                </View>
-              </View>
-            ))}
+                  {schedule.length ? (
+                    schedule.map((dayItem: any) => {
+                      const formatTime = (time: string) => {
+                        if (!time) return '';
+                        const [hour, minute] = time.split(':').map(Number);
+                        const ampm = hour >= 12 ? 'PM' : 'AM';
+                        const hour12 = hour % 12 === 0 ? 12 : hour % 12;
+                        return `${hour12}:${minute.toString().padStart(2, '0')} ${ampm}`;
+                      };
+
+                      return (
+                        <View key={dayItem.day} className="flex-row justify-between items-center py-2">
+                          <Text className="text-gray-800 font-medium w-24">{dayItem.day}</Text>
+                          <Text className="text-gray-800 px-2">
+                            {dayItem.isWorking
+                              ? `${formatTime(dayItem.startTime)} - ${formatTime(dayItem.endTime)}`
+                              : 'Closed'}
+                          </Text>
+                        </View>
+                      );
+                    })
+                  ) : (
+                    <Text className="text-gray-700">No schedule available for this doctor.</Text>
+                  )}
+
           </View>
-
-
         </View>
+
+        
       </ScrollView>
+          </>
+      )}
 
       <View className="my-2 rounded-lg py-2 flex items-center z-50">
-        <CustomButton label="Make Appointment" link='MakeAppointment' />
+        <CustomButton label="Make Appointment" onPress={()=>{
+          navigation.navigate('MakeAppointment' , {doctor});
+        }} />
       </View>
     </SafeAreaView>
   );

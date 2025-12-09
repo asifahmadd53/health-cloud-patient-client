@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   Alert,
   Image,
@@ -7,17 +7,17 @@ import {
   ScrollView,
   Text,
   View,
-  ActivityIndicator,        // ← new
+  ActivityIndicator, // ← new
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import Images from '../../utils/constants/Images';
 import CustomButton from '../../components/CustomButton';
-import { Controller, useForm } from 'react-hook-form';
-import { z } from 'zod';
-import { useNavigation } from '@react-navigation/native';
+import {Controller, useForm} from 'react-hook-form';
+import {z} from 'zod';
+import {useNavigation} from '@react-navigation/native';
 import CustomInput from '../../components/CustomInput';
-import { profileSchema } from '../../validators/profileValidator';
-import { createPatientProfile } from '../../services/patientServices';
+import {profileSchema} from '../../validators/profileValidator';
+import {createPatientProfile} from '../../services/patientServices';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type FormData = z.infer<typeof profileSchema>;
@@ -29,43 +29,36 @@ const SetName: React.FC = () => {
   const {
     control,
     handleSubmit,
-    formState: { errors },
+    formState: {errors},
   } = useForm<FormData>({
-    defaultValues: { name: '' },
+    defaultValues: {name: ''},
   });
 
-  const onSubmit = async ({ name }: FormData) => {
+  const onSubmit = async ({name}: FormData) => {
     setSubmitting(true);
     try {
-      await createPatientProfile({ name });
+      await createPatientProfile({name});
       navigation.navigate('drawer');
     } catch (err: any) {
       Alert.alert(
         'Error',
-        err?.response?.data?.message || 'Failed to create profile'
+        err?.response?.data?.message || 'Failed to create profile',
       );
     } finally {
       setSubmitting(false);
     }
   };
 
-
-
-
-
-
   return (
     <SafeAreaView className="flex-1 bg-white">
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 100 : 0}
-        className="flex-1"
-      >
+        className="flex-1">
         <ScrollView
-          contentContainerStyle={{ paddingBottom: 40 }}
+          contentContainerStyle={{paddingBottom: 40}}
           showsVerticalScrollIndicator={false}
-          className="px-5 pt-6"
-        >
+          className="px-5 pt-6">
           {/* Header */}
           <View className="mt-12">
             <View className="flex-row items-center gap-2">
@@ -77,17 +70,17 @@ const SetName: React.FC = () => {
             </View>
             <Text className="text-2xl font-bold mt-6">Set Up Your Profile</Text>
             <Text className="text-sm text-gray-500 mt-3">
-              Please enter your full name to continue. You can update it later in your profile settings.
+              Please enter your full name to continue. You can update it later
+              in your profile settings.
             </Text>
-
           </View>
 
           <View className="pt-5 w-full gap-2">
             <Controller
               control={control}
               name="name"
-              rules={{ required: "Name is required" }}
-              render={({ field: { onChange, onBlur, value } }) => (
+              rules={{required: 'Name is required'}}
+              render={({field: {onChange, onBlur, value}}) => (
                 <CustomInput
                   label="Enter your name"
                   value={value}
@@ -102,19 +95,16 @@ const SetName: React.FC = () => {
                 {errors.name.message}
               </Text>
             )}
-
           </View>
 
           {/* CTA */}
           <View className="my-8">
-
             <CustomButton
               onPress={handleSubmit(onSubmit)}
               loading={submitting}
               label="Continue"
-            // onPress={handleSubmit(onSubmit)}
+              // onPress={()=> navigation.navigate('drawer')}
             />
-
           </View>
 
           {/* Footer */}

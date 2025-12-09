@@ -5,6 +5,7 @@ import { View, Text, TouchableOpacity, TextInput, Animated, ScrollView, Alert, L
 import { SafeAreaView } from "react-native-safe-area-context"
 import { useNavigation } from "@react-navigation/native"
 import CustomButton from "../../components/CustomButton"
+import Header from "../../components/Header"
 
 const Help = () => {
   const navigation = useNavigation()
@@ -84,7 +85,7 @@ const Help = () => {
   return (
     <SafeAreaView className="flex-1 bg-slate-50">
       {/* Header */}
-      <View className="bg-white border-b border-slate-200 px-6 py-5">
+      {/* <View className="bg-white border-b border-slate-200 px-6 py-5">
         <View className="flex-row items-center justify-between">
           <View>
             <Text className="text-2xl font-bold text-slate-900">Help & Support</Text>
@@ -94,7 +95,8 @@ const Help = () => {
             <Text className="text-xl">💬</Text>
           </View>
         </View>
-      </View>
+      </View> */}
+      <Header title="Help & Support" />
 
       {/* Tab Navigation */}
       <View className="mx-6 mt-6">

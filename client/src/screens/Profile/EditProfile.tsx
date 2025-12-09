@@ -160,7 +160,7 @@ const EditProfile = () => {
 
     return (
         <SafeAreaView className="flex-1 bg-white">
-            <Header title="OTP Verification" />
+            <Header title="Edit profile" />
             <KeyboardAvoidingView
                 className="flex-1"
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}

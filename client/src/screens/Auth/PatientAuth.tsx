@@ -50,7 +50,8 @@ const PatientAuth: React.FC = () => {
         console.warn('No token received from backend');
       }
 
-      navigation.replace('SetName');
+      navigation.replace('OTPVerification', { phone: patientNumber });
+
     } catch (e: any) {
       console.error('Patient auth error:', e);
 
@@ -112,12 +113,11 @@ const PatientAuth: React.FC = () => {
                     disableArrowIcon
                     withShadow={false}
                     autoFocus
-                    maxLength={10}
-                    keyboardType="phone-pad"
                     containerStyle={{
                       width: '100%',
                       borderRadius: 8,
                       backgroundColor: 'transparent',
+                      height: 46,
                     }}
                     flagButtonStyle={{
                       width: 60,
@@ -152,6 +152,7 @@ const PatientAuth: React.FC = () => {
               loading={submitting}
               label="Continue"
               onPress={handleSubmit(onSubmit)}
+              // onPress={() => navigation.navigate('SetName')}
             />
 
           </View>

@@ -53,6 +53,9 @@ import documentOutline from '../../assets/icons/document-outline.png'
 import documentFilled from '../../assets/icons/document-filled.png'
 import profileFilled from '../../assets/icons/profile-filled.png'
 import profileOutline from '../../assets/icons/profile-outline.png'
+import camera from '../../assets/icons/camera.png'
+import gallery from '../../assets/icons/gallery.png'
+import rupeeIcon from '../../assets/icons/rupeeIcon.png'
 
 export default {
     rightIcon,
@@ -109,5 +112,8 @@ export default {
     documentFilled,
     documentOutline,
     profileFilled,
-    profileOutline
+    profileOutline,
+    camera,
+    gallery,
+    rupeeIcon
 }

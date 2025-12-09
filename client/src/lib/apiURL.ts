@@ -2,7 +2,7 @@
 export const END_POINTS = {
   auth: {
     patientAuth: '/auth/patient-auth',
-    // varifyOTP: '/auth/verify-otp',
+    varifyOTP: '/auth/verify-otp',
   },
   profile: {
     createPatientProfile: '/patients/create-patient-profile',
@@ -11,5 +11,9 @@ export const END_POINTS = {
   },
   getDoctors: {
     getAllDoctors: '/patients/get-doctors-by-patient',
+    getDoctorById: '/patients/get-doctor-by-id/:id',
+  },
+  documents: {
+    uploadPatientDocument: '/patients/upload-patient-document',
   },
 };

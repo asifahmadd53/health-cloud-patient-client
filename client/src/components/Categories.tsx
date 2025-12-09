@@ -13,13 +13,16 @@ const isTablet = width > 768;
 const Categories = ({ title, icon, active = false }: CategoriesProps) => {
     return (
         <View
-            className={`flex-row items-center gap-4 py-2 lg:py-2 lg:px-5 px-3 self-start rounded-xl border border-slate-200 shadow-md bg-white shadow-slate-300 mr-2 ${active
-                    ? 'bg-secondary/80 border-secondary'
-                    : 'bg-white border-slate-200 shadow-slate-300'
-                }`}
+            style={{
+                backgroundColor: active ? 'rgba(40, 149, 203, 0.8)' : 'white',
+                borderColor: active ? 'rgba(40, 149, 203, 0.5)' : '#E2E8F0', // slate-200
+            }}
+            className={`flex-row items-center gap-4  py-2 lg:py-2 lg:px-5 px-3 self-start rounded-xl border border-slate-200 shadow-md bg-white shadow-slate-300 mr-3
+                ${active ? 'scale-100': 'scale-100'}
+                `}
         >
             <View
-                className={`p-2 lg:p-5 rounded-full border ${active ? 'bg-white/20 border-white/40' : 'bg-gray-100 border-gray-300'
+                className={`p-2 lg:p-5  rounded-full border ${active ? 'bg-gray-100 border-gray-300' : 'bg-gray-100 border-gray-300 '
                     }`}
             >
                 <Image
@@ -28,7 +31,7 @@ const Categories = ({ title, icon, active = false }: CategoriesProps) => {
                 />
             </View>
             <Text
-                className={`text-base font-semibold ${active ? 'text-white' : 'text-gray-800'
+                className={`text-base border-none bg-none bg-tr pr-3 font-semibold ${active ? 'text-white' : 'text-black'
                     }`}
             >
                 {title}
@@ -39,7 +42,3 @@ const Categories = ({ title, icon, active = false }: CategoriesProps) => {
 
 export default Categories;
 
-
-
-
-    // < View className = "flex-row items-center gap-4 py-2 lg:py-2 lg:px-5 px-3 self-start rounded-xl border border-slate-200 shadow-md bg-white shadow-slate-300 mr-5" >

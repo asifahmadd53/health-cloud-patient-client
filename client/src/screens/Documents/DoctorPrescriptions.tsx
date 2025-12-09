@@ -1,68 +1,34 @@
-import React, { useEffect } from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import * as Progress from 'react-native-progress';
+import React, { useState } from 'react';
+import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
 import Icons from '../../utils/constants/Icons';
-import CustomSecondaryButton from '../../components/CustomSecondaryButton';
+import UploadBox from '../../components/UploadBox';
+import { useDocumentUploader } from '../../hooks/useDocumentUploader';
 
-interface Item {
-  id: string;
-  name: string;
-  progress: number;
-}
+export default function DoctorPrescriptions({ onBrowse }: { onBrowse: () => void }) {
+  const { docs, remove } = useDocumentUploader('PRESCRIPTION');
+  const [seeAll, setSeeAll] = useState(false);
 
-export default function DoctorPrescriptions() {
-  const [items, setItems] = React.useState<Item[]>([
-    { id: '1', name: 'Prescription-12-May.pdf', progress: 0 },
-  ]);
-
-  useEffect(() => {
-    items.forEach((it) => {
-      if (it.progress < 1) {
-        const t = setTimeout(() => {
-          setItems((prev) =>
-            prev.map((x) =>
-              x.id === it.id ? { ...x, progress: Math.min(x.progress + 0.1, 1) } : x
-            )
-          );
-        }, 300);
-        return () => clearTimeout(t);
-      }
-    });
-  }, [items]);
-
-  const remove = (id: string) =>
-    setItems((prev) => prev.map((x) => (x.id === id ? { ...x, progress: 0 } : x)));
+  const list = seeAll ? docs : docs.slice(0, 3);
 
   return (
     <View>
-      {/* upload box */}
-      <View className="mt-10 bg-white border border-dashed border-gray-300 rounded-lg py-6 mx-2 shadow-md">
-        <Text className="text-center text-2xl mb-3">Upload</Text>
-        <View className="items-center gap-3">
-          <Image className="w-20 h-20" source={Icons.cloud_computing} />
-          <CustomSecondaryButton className='bg-secondary' label="Browse File" />
-          <Text className="text-xs text-slate-500">Supported: JPEG, PNG, PDF</Text>
-        </View>
-      </View>
+      <UploadBox title="Upload Prescription" onBrowse={onBrowse} />
 
       <View className="flex-row justify-between px-2 mt-6">
         <Text className="text-base">Your Prescriptions</Text>
-        <TouchableOpacity>
-          <Text className="text-secondary underline">See All</Text>
-        </TouchableOpacity>
+        {docs.length > 3 && (
+          <TouchableOpacity onPress={() => setSeeAll(v => !v)}>
+            <Text className="text-secondary underline">{seeAll ? 'See less' : 'See All'}</Text>
+          </TouchableOpacity>
+        )}
       </View>
 
-      {items.map((it) => (
-        <View key={it.id} className="bg-white mt-4 px-3 py-4 rounded-lg shadow-md mx-2">
-          <Text className="font-semibold">{it.name}</Text>
-          <View className="flex-row items-center gap-4 mt-3">
-            <View className="flex-1">
-              <Progress.Bar color="#2895cb" progress={0.3} width={200} />
-            </View>
-            <TouchableOpacity onPress={() => remove(it.id)}>
-              <Image className="w-7 h-7" source={Icons.cross} />
-            </TouchableOpacity>
-          </View>
+      {list.map(item => (
+        <View key={item.id} className="bg-white p-3 rounded-lg shadow mb-3 mx-2 flex-row justify-between items-center">
+          <Text className="font-medium flex-1">{item.name}</Text>
+          <TouchableOpacity onPress={() => remove(item.id)}>
+            <Image source={Icons.cross} className="w-5 h-5" />
+          </TouchableOpacity>
         </View>
       ))}
     </View>
