@@ -76,7 +76,7 @@ const DrawerLayout = () => {
           ),
         }}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         name="Add Family"
         component={MyFamily}
         options={{
@@ -94,7 +94,7 @@ const DrawerLayout = () => {
             </View>
           ),
         }}
-      />
+      /> */}
       <Drawer.Screen
         name="Privacy"
         component={Privacy}

@@ -132,16 +132,7 @@ const Specialists = () => {
           </TouchableOpacity>
         </View>
 
-        {/* <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          className="flex-none py-2 lg:px-8 mt-4">
-          <Categories title="All" icon={Icons.doctor} />
-          <Categories title="Cardiologist" icon={Icons.heart} />
-          <Categories title="Neurology" icon={Icons.brain} />
-          <Categories title="Eye Specialist" icon={Icons.eye} />
-          <Categories title="Dentist" icon={Icons.tooth} />
-        </ScrollView> */}
+        
 
               <ScrollView
                   horizontal
@@ -185,11 +176,10 @@ const Specialists = () => {
                 name={item.doctor?.name}
                 speciality={item.specialty?.join(', ') || 'General Practice'}
                 city={item.city || 'Unknown'}
-                fee={50}
+                consultationFee={item?.consultationFee}   // ← live value
                 image={item.image}
                 onPress={() => {
-                  const doctorProfileId = item?._id;  // CORRECT ID
-
+                  const doctorProfileId = item?._id;
                   if (doctorProfileId) {
                     navigation.navigate('DrProfileRoutes', {
                       screen: 'DrProfile',

@@ -1,83 +1,103 @@
-import React, { useRef, useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    Animated,
-    Image,
-    ScrollView,
-    Platform,
-    KeyboardAvoidingView,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '../../components/Header';
-import Icons from '../../utils/constants/Icons';
-import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from '@gorhom/bottom-sheet';
-import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import { useRef, useEffect, useState } from "react"
+import { View, Text, TouchableOpacity, Animated, Image, ScrollView, Platform, KeyboardAvoidingView } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context"
 
-import AddReports from './AddReports';
-import DoctorPrescriptions from './DoctorPrescriptions';
-import { useDocumentUploader } from '../../hooks/useDocumentUploader';
-
-type Tab = 'reports' | 'prescription';
-
-export default function AddDocuments() {
-    const [tabWidth, setTabWidth] = useState(0);
-
-    const slideAnim = useRef(new Animated.Value(0)).current;
-    const [activeTab, setActiveTab] = useState<Tab>('reports');
-
-    /* bottom-sheet ref -------------------------------------------------- */
-    const bottomSheetRef = useRef<BottomSheet>(null);
-
-    /* which uploader is active? ----------------------------------------- */
-    const reportUploader = useDocumentUploader('REPORT');
-    const prescriptionUploader = useDocumentUploader('PRESCRIPTION');
-
-    const currentUploader = activeTab === 'reports' ? reportUploader : prescriptionUploader;
+import BottomSheet, { BottomSheetBackdrop, BottomSheetView } from "@gorhom/bottom-sheet"
+import { launchCamera, launchImageLibrary } from "react-native-image-picker"
+import AddReports from "./AddReports"
+import DoctorPrescriptions from "./DoctorPrescriptions"
+import { useDocumentUploader } from "../../hooks/useDocumentUploader"
+import Header from "../../components/Header"
+import Icons from "../../utils/constants/Icons"
 
 
-    const closeSheet = () => bottomSheetRef.current?.close();
+type Tab = "reports" | "prescription"
+
+export default function AddDocuments({ navigation }: any) {
+    const [tabWidth, setTabWidth] = useState(0)
+    const slideAnim = useRef(new Animated.Value(0)).current
+    const [activeTab, setActiveTab] = useState<Tab>("reports")
+    const bottomSheetRef = useRef<BottomSheet>(null)
+
+    const reportUploader = useDocumentUploader("REPORT")
+    const prescriptionUploader = useDocumentUploader("PRESCRIPTION")
+
+    const currentUploader = activeTab === "reports" ? reportUploader : prescriptionUploader
+
+    const closeSheet = () => bottomSheetRef.current?.close()
 
     const onFile = (asset: { uri: string; name: string; type: string }) => {
-        currentUploader.add(asset);
-        closeSheet();
-    };
+        currentUploader.add(asset)
+        closeSheet()
+    }
 
     useEffect(() => {
-        if (tabWidth <= 0) return;
+        if (tabWidth <= 0) return
 
         Animated.spring(slideAnim, {
-            toValue: activeTab === 'reports' ? 0 : 1,
+            toValue: activeTab === "reports" ? 0 : 1,
             useNativeDriver: false,
-        }).start();
-    }, [activeTab, tabWidth]);
-
+        }).start()
+    }, [activeTab, tabWidth])
 
     const openCamera = () => {
-        launchCamera({ mediaType: 'photo' }, (r) => {
-            if (!r.didCancel && r.assets?.[0]) onFile(r.assets[0]);
-        });
-    };
+        launchCamera({ mediaType: "photo", quality: 0.8 }, (r) => {
+            if (!r.didCancel && r.assets?.[0]) {
+                const asset = r.assets[0]
+                onFile({
+                    uri: asset.uri || "",
+                    name: asset.fileName || `photo_${Date.now()}.jpg`,
+                    type: asset.type || "image/jpeg",
+                })
+            }
+        })
+    }
 
     const openGallery = () => {
-        launchImageLibrary({ mediaType: 'photo' }, (r) => {
-            if (!r.didCancel && r.assets?.[0]) onFile(r.assets[0]);
+        launchImageLibrary({ mediaType: "photo", quality: 0.8 }, (r) => {
+            if (!r.didCancel && r.assets?.[0]) {
+                const asset = r.assets[0]
+                onFile({
+                    uri: asset.uri || "",
+                    name: asset.fileName || `image_${Date.now()}.jpg`,
+                    type: asset.type || "image/jpeg",
+                })
+            }
+        })
+    }
+
+    const openBottomSheet = () => {
+        bottomSheetRef.current?.expand()
+    }
+
+    const handleSeeAllReports = () => {
+        navigation.navigate("DocumentLayout", {
+            screen: "AllReports",
+            params: {
+                initialDocs: reportUploader.docs,
+                status: reportUploader.status,
+            },
         });
     };
 
-    const openBottomSheet = () => {
-        bottomSheetRef.current?.expand();
+
+
+    const handleSeeAllPrescriptions = () => {
+        navigation.navigate("DocumentLayout", {
+            screen: "AllPrescriptions",
+            params: {
+                initialDocs: prescriptionUploader.docs,
+                status: prescriptionUploader.status,
+            },
+        });
     };
+
 
     return (
         <SafeAreaView className="flex-1 bg-white">
             <Header title="Add Documents" />
 
-            <KeyboardAvoidingView
-                className="flex-1"
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-            >
+            <KeyboardAvoidingView className="flex-1" behavior={Platform.OS === "ios" ? "padding" : "height"}>
                 <ScrollView
                     className="px-5 pt-6"
                     showsVerticalScrollIndicator={false}
@@ -88,8 +108,8 @@ export default function AddDocuments() {
                         <View
                             className="relative flex-row bg-gray-100 rounded-full p-1"
                             onLayout={(e) => {
-                                const full = e.nativeEvent.layout.width;
-                                if (full > 0) setTabWidth(full / 2);
+                                const full = e.nativeEvent.layout.width
+                                if (full > 0) setTabWidth(full / 2)
                             }}
                         >
                             {tabWidth > 0 && (
@@ -109,26 +129,17 @@ export default function AddDocuments() {
                                 />
                             )}
 
-                            <TouchableOpacity
-                                className="flex-1 items-center py-2 z-10"
-                                onPress={() => setActiveTab('reports')}
-                            >
+                            <TouchableOpacity className="flex-1 items-center py-2 z-10" onPress={() => setActiveTab("reports")}>
                                 <Text
-                                    className={`font-semibold text-sm ${activeTab === 'reports' ? 'text-secondary' : 'text-gray-500'
-                                        }`}
+                                    className={`font-semibold text-sm ${activeTab === "reports" ? "text-secondary" : "text-gray-500"}`}
                                 >
                                     My Reports
                                 </Text>
                             </TouchableOpacity>
 
-                            <TouchableOpacity
-                                className="flex-1 items-center py-2 z-10"
-                                onPress={() => setActiveTab('prescription')}
-                            >
+                            <TouchableOpacity className="flex-1 items-center py-2 z-10" onPress={() => setActiveTab("prescription")}>
                                 <Text
-                                    className={`font-semibold text-sm ${activeTab === 'prescription'
-                                            ? 'text-secondary'
-                                            : 'text-gray-500'
+                                    className={`font-semibold text-sm ${activeTab === "prescription" ? "text-secondary" : "text-gray-500"
                                         }`}
                                 >
                                     Doctor Prescription
@@ -139,45 +150,37 @@ export default function AddDocuments() {
 
                     {/* Tab Content */}
                     <View className="flex-1 mt-6">
-                        {activeTab === 'reports' ? (
-                            <AddReports onBrowse={openBottomSheet} />
+                        {activeTab === "reports" ? (
+                            <AddReports onBrowse={openBottomSheet} onSeeAll={handleSeeAllReports} uploader={reportUploader} />
                         ) : (
-                            <DoctorPrescriptions onBrowse={openBottomSheet} />
+                            <DoctorPrescriptions
+                                onBrowse={openBottomSheet}
+                                onSeeAll={handleSeeAllPrescriptions}
+                                uploader={prescriptionUploader}
+                            />
                         )}
                     </View>
-
                 </ScrollView>
             </KeyboardAvoidingView>
 
             <BottomSheet
                 ref={bottomSheetRef}
-                snapPoints={['25%']}
+                snapPoints={["25%"]}
                 index={-1}
                 enablePanDownToClose
                 backdropComponent={(props) => (
-                    <BottomSheetBackdrop
-                        {...props}
-                        appearsOnIndex={0}
-                        disappearsOnIndex={-1}
-                        pressBehavior="close"   // ← Close on outside click
-                    />
+                    <BottomSheetBackdrop {...props} appearsOnIndex={0} disappearsOnIndex={-1} pressBehavior="close" />
                 )}
             >
                 <BottomSheetView style={{ padding: 20 }}>
-                    <TouchableOpacity
-                        className="flex-row items-center py-4"
-                        onPress={openCamera}
-                    >
+                    <TouchableOpacity className="flex-row items-center py-4" onPress={openCamera}>
                         <View className="w-10 h-10 bg-blue-100 rounded-full items-center justify-center mr-4">
                             <Image className="w-6 h-6" source={Icons.camera} />
                         </View>
                         <Text className="text-base">Take Photo</Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity
-                        className="flex-row items-center py-4"
-                        onPress={openGallery}
-                    >
+                    <TouchableOpacity className="flex-row items-center py-4" onPress={openGallery}>
                         <View className="w-10 h-10 bg-green-100 rounded-full items-center justify-center mr-4">
                             <Image className="w-6 h-6" source={Icons.gallery} />
                         </View>
@@ -186,5 +189,5 @@ export default function AddDocuments() {
                 </BottomSheetView>
             </BottomSheet>
         </SafeAreaView>
-    );
+    )
 }

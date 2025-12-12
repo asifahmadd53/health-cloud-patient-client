@@ -9,7 +9,7 @@ const isTablet = width > 768;
 interface DoctorCardProps {
     name: string;
     speciality: string;
-    fee: number;
+    consultationFee: number;
     city: string;
     image?: string;
     onPress?: () => void;
@@ -18,7 +18,7 @@ interface DoctorCardProps {
 const DoctorCard: React.FC<DoctorCardProps> = ({
     name,
     speciality,
-    fee,
+    consultationFee,
     city,
     image,
     onPress,
@@ -51,7 +51,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({
                     {/* Rating & Location Section */}
                     <View className="flex-row justify-between items-end">
                         <Text className="text-sm font-medium text-green-700 lg:text-lg mt-1">
-                            Fee: ${fee || "N/A"} per session
+                            Fee: Rs {consultationFee ?? '—'} per session
                         </Text>
 
                         <View className="flex-row items-center gap-1">

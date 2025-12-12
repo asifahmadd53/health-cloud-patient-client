@@ -1,8 +1,6 @@
-import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
-import Icons from '../utils/constants/Icons';
-import CustomSecondaryButton from './CustomSecondaryButton';
-
+import { View, Text, Image } from "react-native"
+import Icons from "../utils/constants/Icons"
+import CustomSecondaryButton from "./CustomSecondaryButton"
 
 export default function UploadBox({ title, onBrowse }: { title: string; onBrowse: () => void }) {
     return (
@@ -12,14 +10,10 @@ export default function UploadBox({ title, onBrowse }: { title: string; onBrowse
             <View className="items-center gap-3">
                 <Image className="w-20 h-20" source={Icons.cloud_computing} />
 
-                <CustomSecondaryButton
-                    className='bg-secondary'
-                    label="Browse File"
-                    onPress={onBrowse}
-                />
-                
+                <CustomSecondaryButton className="bg-secondary" label="Browse File" onPress={onBrowse} />
+
                 <Text className="text-xs text-slate-500">Supported: JPEG, PNG, PDF</Text>
             </View>
         </View>
-    );
+    )
 }

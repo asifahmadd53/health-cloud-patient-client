@@ -29,3 +29,28 @@ export const updatePatientProfile = async (data: any) => {
   );
   return res.data;
 };
+
+type FileAsset = {
+  uri: string;
+  name: string;
+  type: string;
+};
+
+export const uploadDocument = (file: FileAsset, kind: DocumentKind) => {
+  const formData = new FormData();
+
+  formData.append('document', {
+    uri: file.uri,
+    type: file.type || 'image/jpeg',
+    name: file.name || `doc-${Date.now()}.jpg`,
+  } as any);
+
+  formData.append('documentType', kind);
+
+  return apiInvoker(
+    END_POINTS.documents.uploadPatientDocument,
+    'POST',
+    formData,
+    {headers: {'Content-Type': 'multipart/form-data'}},
+  );
+};

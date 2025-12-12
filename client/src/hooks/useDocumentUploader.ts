@@ -1,7 +1,8 @@
+'use client';
+
 import {useState, useCallback} from 'react';
-import {DocumentKind, UploadedDoc} from '../utils/types/documents';
+import type {DocumentKind, UploadedDoc} from '../utils/types/documents';
 import {uploadDocument} from '../services/patientServices';
-import axios from 'axios';
 
 type Status = 'idle' | 'uploading' | 'success' | 'error';
 
@@ -22,7 +23,6 @@ export const useDocumentUploader = (kind: DocumentKind) => {
         progress: 0,
       };
 
-      // put recent at top
       setDocs(prev => [temp, ...prev]);
       setStatus('uploading');
 
@@ -38,7 +38,6 @@ export const useDocumentUploader = (kind: DocumentKind) => {
 
         const payload = response.data?.data;
 
-        // replace temp doc with final uploaded doc
         setDocs(prev =>
           prev.map(d =>
             d.id === tempId
@@ -54,6 +53,7 @@ export const useDocumentUploader = (kind: DocumentKind) => {
 
         setStatus('success');
       } catch (err) {
+        console.error('Upload error:', err);
         setStatus('error');
         setDocs(prev => prev.filter(d => d.id !== tempId));
       }

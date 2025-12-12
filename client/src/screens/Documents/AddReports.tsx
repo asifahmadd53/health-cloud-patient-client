@@ -1,47 +1,48 @@
-import React, { useState } from 'react';
-import { View, Text, Image, TouchableOpacity, FlatList } from 'react-native';
-import * as Progress from 'react-native-progress';
-import Icons from '../../utils/constants/Icons';
-import UploadBox from '../../components/UploadBox';
-import { useDocumentUploader } from '../../hooks/useDocumentUploader';
+import { View, Text, TouchableOpacity } from "react-native"
+import UploadBox from "../../components/UploadBox"
+import DocumentCard from "../../components/DocumentCard"
 
-export default function AddReports({ onBrowse }: { onBrowse: () => void }) {
-    const { docs, remove, status } = useDocumentUploader('REPORT');
-    const [seeAll, setSeeAll] = useState(false);
+export default function AddReports({
+    onBrowse,
+    onSeeAll,
+    uploader,
+}: {
+    onBrowse: () => void
+    onSeeAll: () => void
+    uploader: ReturnType<typeof import("../../hooks/useDocumentUploader").useDocumentUploader>
+}) {
+    const { docs, remove, status } = uploader
 
-    const list = seeAll ? docs : docs.slice(0, 3);
+    const recentDocs = docs.slice(0, 3)
 
     return (
         <View>
             <UploadBox title="Upload Report" onBrowse={onBrowse} />
 
-            <View className=" justify-between px-2 mt-6 ">
-                <Text className="text-base">Your Documents</Text>
+            <View className="flex-row justify-between items-center px-2 mt-6 mb-3">
+                <Text className="text-base font-semibold">Recent Reports</Text>
                 {docs.length > 3 && (
-                    <TouchableOpacity onPress={() => setSeeAll(v => !v)}>
-                        <Text className="text-secondary underline">{seeAll ? 'See less' : 'See All'}</Text>
+                    <TouchableOpacity onPress={onSeeAll}>
+                        <Text className="text-secondary underline font-medium">See All</Text>
                     </TouchableOpacity>
                 )}
             </View>
 
-            {list.map(item => (
-                <View key={item.id} className="bg-white p-3 rounded-lg shadow mb-3 mx-2">
-                    <Text className="font-medium mb-2">{item.name}</Text>
-                    <Text className="text-xs text-gray-500">{Math.round((item.progress ?? 0) * 100)} %</Text>
-                    <View className="flex-row items-center justify-between">
-                        <Progress.Bar
-                            progress={item.progress ?? 0}
-                            width={null}
-                            flex={1}
-                            color="#2895cb"
-                            indeterminate={status === 'uploading' && (item.progress ?? 0) === 0}
-                        />
-                        <TouchableOpacity onPress={() => remove(item.id)} className="ml-4">
-                            <Image source={Icons.cross} className="w-5 h-5" />
-                        </TouchableOpacity>
-                    </View>
+            {recentDocs.length === 0 && (
+                <View className="items-center py-8">
+                    <Text className="text-gray-400 text-sm">No reports uploaded yet</Text>
                 </View>
+            )}
+
+            {recentDocs.map((item) => (
+                <DocumentCard
+                    key={item.id}
+                    name={item.name}
+                    progress={item.progress ?? 0}
+                    isUploading={status === "uploading"}
+                    onRemove={() => remove(item.id)}
+                />
             ))}
         </View>
-    );
+    )
 }

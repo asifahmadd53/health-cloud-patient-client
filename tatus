@@ -1,0 +1,33 @@
+[33mbcc0d6a[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{0}: checkout: moving from main to bcc0d6a
+[33mbcc0d6a[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{1}: checkout: moving from c6ca6e2a9e4e6029a94424ef1291153a467cebed to main
+[33mc6ca6e2[m HEAD@{2}: commit: The reports are perfeclty gone to the database
+[33mbcc0d6a[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{3}: checkout: moving from main to bcc0d6a649eb0ab07ab815cd594fdd6cb6a5a15e
+[33mbcc0d6a[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m HEAD@{4}: commit: Filter out the doctors are done
+[33mea52c2f[m HEAD@{5}: commit: Fixing the Patient Profile and get all the doctors
+[33mba345cc[m HEAD@{6}: commit: Setup for the API integration
+[33mcd7619e[m HEAD@{7}: commit: Developed the multiple pages and fixing the issue of the several packagesd issue 10/07/2025
+[33m9e65a6a[m HEAD@{8}: commit: Fix the issue of the Dr Profile ScrollView
+[33m17e63ff[m HEAD@{9}: commit: Fix the issue of the Dr Profile ScrollView
+[33m204bd0a[m HEAD@{10}: commit: Fix the issue of the Dr Profile ScrollView
+[33maf79cf0[m HEAD@{11}: commit: Fix the issue of the Dr Profile ScrollView
+[33m5de68a5[m HEAD@{12}: commit: Fix the issue of the Dr Profile ScrollView
+[33mda87be3[m HEAD@{13}: commit: Fix the issue of the Dr Profile ScrollView
+[33m61a03b1[m HEAD@{14}: commit: Fix the issue of the Dr Profile ScrollView
+[33me25b367[m HEAD@{15}: commit: Fix the issue of the Dr Profile
+[33m91d8bca[m HEAD@{16}: commit: Fix the issue of the Dr Profile
+[33m131c101[m HEAD@{17}: commit: Fix the issue of the Dr Profile
+[33m655d147[m HEAD@{18}: commit: Fix the issue of the Dr Profile
+[33mb806dbc[m HEAD@{19}: commit: Fix the issue of the Dr Profile
+[33m740cd11[m HEAD@{20}: commit: Fix the issue of the Dr Profile
+[33ma08155c[m HEAD@{21}: commit: Fix the issue of the Dr Profile
+[33m5431c94[m HEAD@{22}: commit: Creating the OTP screeen
+[33mf3e5dd4[m HEAD@{23}: commit: change the authentication or registration process!!
+[33m7b6b16c[m HEAD@{24}: commit: Making user profile
+[33m1f3c9ff[m HEAD@{25}: commit: Making doctor profile
+[33mb44284f[m HEAD@{26}: commit: manage some routes profile routes etc
+[33m6dd2e57[m HEAD@{27}: commit: add react native screens with some minor changes in kotlin version
+[33mfe61796[m HEAD@{28}: commit: Add code from expo project to React Native Cli
+[33m1c8cc89[m HEAD@{29}: commit: "remove .vscode folder"
+[33m536769c[m HEAD@{30}: commit: "Fix the jdk errors and as well as Kotlin Versions Errrors"
+[33m18f2a9b[m HEAD@{31}: Branch: renamed refs/heads/master to refs/heads/main
+[33m18f2a9b[m HEAD@{33}: commit (initial): creating the Project

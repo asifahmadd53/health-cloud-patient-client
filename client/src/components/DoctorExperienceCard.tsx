@@ -40,8 +40,14 @@ const DoctorExperienceCard = ({ doctor }: any) => {
                     <Text className="text-sm text-gray-600 lg:text-lg">
                         {doctor?.certifications || 'MBBS'}
                     </Text>
+
+                    
                 </View>
+                
             </View>
+            <Text className="text-sm font-semibold text-gray-800 mt-1">
+                Consultation Fee: <Text className="font-bold text-base">Rs {doctor?.consultationFee ?? '—'}</Text>
+            </Text>
 
             <View className="flex-row justify-between lg:justify-around lg:mt-6 pt-4 px-3">
                 {experienceData.map(item => (
