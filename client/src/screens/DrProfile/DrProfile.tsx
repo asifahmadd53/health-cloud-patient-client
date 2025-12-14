@@ -27,7 +27,13 @@ const DrProfile = () => {
     const fetchDoctor = async () => {
       try {
         const res = await getDoctorById(id);
-        setDoctor({ ...res.data.doctor, ...res.data.doctor.doctor });
+        
+        const doctorData = {
+          ...res.data.doctor,
+          ...res.data.doctor.doctor,
+          doctorProfileId: res.data.doctor._id // <--- ADD this
+        };
+        setDoctor(doctorData);
         setSchedule(res.data.doctor?.schedule?.weeklySchedule || []);
       } catch (err:any) {
         console.log("Doctor fetch error:", err.response?.data || err.message);

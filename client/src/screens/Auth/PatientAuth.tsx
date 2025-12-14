@@ -46,6 +46,7 @@ const PatientAuth: React.FC = () => {
 
       if (res?.token) {
         await AsyncStorage.setItem('authToken', res.token);
+        await AsyncStorage.setItem('patientPhone', patientNumber); 
       } else {
         console.warn('No token received from backend');
       }

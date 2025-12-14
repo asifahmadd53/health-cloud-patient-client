@@ -10,10 +10,32 @@ import Privacy from "../../screens/Drawer/privacy"
 import Help from "../../screens/Drawer/help"
 import MyFamily from "../../screens/Tabs/MyFamily"
 import Profile from "../../screens/Profile/Profile"
+import AsyncStorage from "@react-native-async-storage/async-storage"
+import { CommonActions } from "@react-navigation/native";
 
 const Drawer = createDrawerNavigator()
 
+
+
+
 const CustomDrawerContent = (props: any) => {
+
+  const handleLogout = async () => {
+    try {
+      await AsyncStorage.clear();
+
+      props.navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: "auth" }],  // ROOT STACK NAME
+        })
+      );
+
+    } catch (error) {
+      console.log("Logout Error:", error);
+    }
+  };
+
   return (
     <DrawerContentScrollView {...props} contentContainerStyle={{ flex: 1 }}>
       <View className='flex-col items-center  mb-8 mt-4'>
@@ -23,7 +45,7 @@ const CustomDrawerContent = (props: any) => {
 
       <DrawerItemList {...props} />
 
-      <TouchableOpacity className="flex-row items-center px-5 py-4 mt-auto border-t border-gray-200">
+      <TouchableOpacity onPress={handleLogout} className="flex-row items-center px-5 py-4 mt-auto border-t border-gray-200">
         <View className="flex-row items-center justify-between w-full">
           <View className="flex-row items-center">
             <View className="w-10 h-10 items-center justify-center rounded-full bg-red-50">

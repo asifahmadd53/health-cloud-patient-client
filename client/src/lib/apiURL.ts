@@ -16,4 +16,8 @@ export const END_POINTS = {
   documents: {
     uploadPatientDocument: '/patients/upload-patient-document',
   },
+  appointment: {
+    makeAppointment: '/patients/make-appointment',
+    getDoctorAvailableSlots: '/doctors/get-available-slots',
+  },
 };

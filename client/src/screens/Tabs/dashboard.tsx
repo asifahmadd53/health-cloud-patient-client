@@ -4,7 +4,7 @@ import { Avatar } from 'react-native-paper';
 
 import React, { useCallback, useRef, useState } from 'react';
 
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import CustomHeader from '../../components/CustomHeader';
 import Images from '../../utils/constants/Images';
 import Icons from '../../utils/constants/Icons';
@@ -22,6 +22,7 @@ import LocationIcon from "../../assets/icons/location-svgrepo-com.svg";
 import Banner from '../../components/Banner';
 import WhyMarham from '../../components/WhyMarham';
 import PhoneVideo from '../../components/PhoneVideo';
+import { getAllDoctors } from '../../services/doctorsServices';
 
 const { width } = Dimensions.get('window');
 
@@ -36,6 +37,10 @@ const DashBoard = () => {
   const handleSheetChanges = useCallback((index: number) => {
     console.log('handleSheetChanges', index);
   }, []);
+  const [doctors, setDoctors] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  
   const defaultDataWith6Colors = [
     '#B0604D',
     '#899F9C',
@@ -58,6 +63,20 @@ const DashBoard = () => {
       strokeDashoffset,
     };
   });
+
+  useEffect(() => {
+      const fetchDoctors = async () => {
+        try {
+          const res = await getAllDoctors();
+          setDoctors(res?.data?.doctors || []);
+        } catch (error) {
+          console.error('Error fetching doctors:', error);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchDoctors();
+    }, []);
 
 
   return (
@@ -190,22 +209,8 @@ const DashBoard = () => {
           <Categories title='Dentist' icon={Icons.tooth} />
         </ScrollView>
 
-        <View className="flex-row justify-between items-center mt-4">
-          <Text className="text-lg font-semibold lg:text-xl">Recent Doctors</Text>
-          <Text onPress={() => navigation.navigate('RecentDr')} className="text-secondary underline text-sm lg:text-lg">SEE ALL</Text>
-        </View>
-
-        <FlatList
-          data={[2, 3, 5, 5, 45, 45]}
-          horizontal
-          showsHorizontalScrollIndicator={true}
-          ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
-          renderItem={({ item }) => (
-            <DoctorCard value={item} />
-          )}
-          keyExtractor={(item, index) => index.toString()}
-          style={{ flexGrow: 0, height: 110 }}
-        />
+        
+        
 
         <View className="flex-row justify-between items-center mt-4">
           <Text className="text-lg font-semibold lg:text-xl">Doctors in Sahiwal</Text>
@@ -213,12 +218,31 @@ const DashBoard = () => {
         </View>
 
         <FlatList
-          data={[2, 3, 5, 5, 45, 45]}
+          data={doctors}
           horizontal
+          showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={true}
           ItemSeparatorComponent={() => <View style={{ width: 16 }} />}
+          keyExtractor={item => item._id}
           renderItem={({ item }) => (
-            <DoctorCard value={item} />
+            <DoctorCard
+              name={item.doctor?.name}
+              speciality={item.specialty?.join(', ') || 'General Practice'}
+              city={item.city || 'Unknown'}
+              consultationFee={item?.consultationFee}  
+              image={item.image}
+              onPress={() => {
+                const doctorProfileId = item?._id;
+                if (doctorProfileId) {
+                  navigation.navigate('DrProfileRoutes', {
+                    screen: 'DrProfile',
+                    params: { id: doctorProfileId },
+                  });
+                } else {
+                  console.warn('doctorProfile _id missing', item);
+                }
+              }}
+            />
           )}
           keyExtractor={(item, index) => index.toString()}
           style={{ flexGrow: 0, height: 110 }}

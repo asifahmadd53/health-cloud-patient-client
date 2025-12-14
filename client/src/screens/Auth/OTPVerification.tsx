@@ -137,6 +137,7 @@ const OTP = () => {
           <CustomButton
             label="Verify & Continue"
             onPress={handleVerify}
+            loading={loading}
             // link="drawer"
             disabled={loading || otp.join('').length !== 4}
           />

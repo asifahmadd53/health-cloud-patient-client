@@ -54,3 +54,33 @@ export const uploadDocument = (file: FileAsset, kind: DocumentKind) => {
     {headers: {'Content-Type': 'multipart/form-data'}},
   );
 };
+
+export type MakeAppointmentPayload = {
+  doctorId: string;
+  appointmentDate: string; 
+  appointmentTime: string;
+  paymentType: 'ONLINE' | 'OFFLINE';
+};
+
+export const getDoctorAvailableSlots = async (
+  doctorId: string,
+  date: string,
+) => {
+  const res = await apiInvoker(
+    `${END_POINTS.appointment.getDoctorAvailableSlots}?doctorId=${doctorId}&date=${date}`,
+    'GET',
+  );
+
+  return res.data;
+};
+
+
+export const makeAppointment = async (data: MakeAppointmentPayload) => {
+  const res = await apiInvoker(
+    END_POINTS.appointment.makeAppointment,
+    'POST',
+    data,
+  );
+  return res.data;
+};
+

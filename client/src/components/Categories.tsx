@@ -14,11 +14,11 @@ const Categories = ({ title, icon, active = false }: CategoriesProps) => {
     return (
         <View
             style={{
-                backgroundColor: active ? 'rgba(40, 149, 203, 0.8)' : 'white',
+                backgroundColor: active ? 'rgba(40, 149, 203, 0.8)' : '#F5F7FA', // soft light gray
                 borderColor: active ? 'rgba(40, 149, 203, 0.5)' : '#E2E8F0', // slate-200
             }}
-            className={`flex-row items-center gap-4  py-2 lg:py-2 lg:px-5 px-3 self-start rounded-xl border border-slate-200 shadow-md bg-white shadow-slate-300 mr-3
-                ${active ? 'scale-100': 'scale-100'}
+            className={`flex-row items-center gap-4 py-2 lg:py-2 lg:px-5 px-3 self-start rounded-xl border shadow-md shadow-slate-300 mr-3
+                ${active ? 'scale-100' : 'scale-100'}
                 `}
         >
             <View
